@@ -56,25 +56,34 @@ public abstract class Character extends Object {
         if (location_y + 50 < y - this.speed) this.down = true;
         else if (location_y + 50 > y + this.speed) this.up = true;
         else location_y = y - 50;
+
+        if (up)     this.location_y -= this.speed;
+        if (down)   this.location_y += this.speed;
+        if (right) {this.location_x += this.speed; flip = false; }
+        if (left)  {this.location_x -= this.speed; flip = true; }
     }
 
-    public void findTheWay(int x, int y, boolean careful) {
+    protected boolean condition(int x, int y) {
+        return false;
+    }
+
+    public void findTheWay(boolean careful) {
         if (careful) {
             x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
             y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
         }
         que = new LinkedList<>();
-        if (!blocked(x_room, y_room - 1))    que.add(new node(x_room, y_room - 1, 0, 9));
-        if (!blocked(x_room, y_room + 1))    que.add(new node(x_room, y_room + 1, 2, 9));
-        if (!blocked(x_room + 1, y_room))    que.add(new node(x_room + 1, y_room, 1, 9));
-        if (!blocked(x_room - 1, y_room))    que.add(new node(x_room - 1, y_room, 3, 9));
+        if (!blocked(x_room, y_room - 1))    que.add(new node(x_room, y_room - 1, 0, 6));
+        if (!blocked(x_room, y_room + 1))    que.add(new node(x_room, y_room + 1, 2, 6));
+        if (!blocked(x_room + 1, y_room))    que.add(new node(x_room + 1, y_room, 1, 6));
+        if (!blocked(x_room - 1, y_room))    que.add(new node(x_room - 1, y_room, 3, 6));
         if (que.size() == 0) return;
         while (!que.isEmpty()) {
             node n = que.poll();
             if (n.count == 0) {
                 return;
             }
-            if (n.x == x && n.y == y) {
+            if (condition(n.x, n.y)) {
                 if (n.z == 0) y_room--;
                 if (n.z == 1) x_room++;
                 if (n.z == 2) y_room++;
@@ -92,5 +101,20 @@ public abstract class Character extends Object {
         if (x == x_room && y == y_room) return true;
         if (room.get(x, y).charAt(0) == 'F') return true;
         return room.blocked(x, y);
+    }
+
+}
+
+class node {
+    public int x;
+    public int y;
+    public int z;
+    public int count;
+
+    node(int x, int y, int z, int count) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.count = count;
     }
 }

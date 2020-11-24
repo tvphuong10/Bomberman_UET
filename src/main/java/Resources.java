@@ -13,12 +13,14 @@ public class Resources {
     static final int SCREEN_W = 900;
 
     public enum Images {
-        //BACKGROUND,
+        BACKGROUND,
+        GATE,
         MINIMAP,
         MINIMAP2,
         BOMB,
         BOMBUP,
         FIREUP,
+        COIN,
         FLOOR,
         FLOOR2,
         HARD_WALL,
@@ -48,7 +50,9 @@ public class Resources {
         LEESINDEAD,
         RUN,
         TEEMO,
-        TEEMODEAD;
+        TEEMODEAD,
+        GHOST,
+        GHOSTDEAD;
 
         private BufferedImage[] animation = new BufferedImage[4];
 
@@ -69,6 +73,9 @@ public class Resources {
         try {
             String res = "/Img/";
             System.out.println(Resources.class.getResource(""));
+            Images.GATE.image = ImageIO.read(Resources.class.getResource(res + "Gate.png"));
+            Images.COIN.image = ImageIO.read(Resources.class.getResource(res + "Coin.png"));
+            Images.BACKGROUND.image = ImageIO.read(Resources.class.getResource(res + "Bg.png"));
             Images.FLOOR.image = ImageIO.read(Resources.class.getResource(res + "Floor.png"));
             Images.FLOOR2.image = ImageIO.read(Resources.class.getResource(res + "Floor2.png"));
             Images.TRANSITIONS.image = ImageIO.read(Resources.class.getResource(res + "Transitions.png"));
@@ -93,6 +100,8 @@ public class Resources {
                 Animation.LEESINDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "LeesinDead" + i + ".png"));
                 Animation.BAT.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Bat" + i + ".png"));
                 Animation.BATDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "BatDead" + i + ".png"));
+                Animation.GHOST.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Ghost" + i + ".png"));
+                Animation.GHOSTDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "GhostDead" + i + ".png"));
             }
 
             for (int i = 1; i <= 3; i++) {

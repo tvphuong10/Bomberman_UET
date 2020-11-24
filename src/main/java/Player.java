@@ -6,12 +6,13 @@ public class Player extends Character {
     int immortal_timer;
     int level_x;
     int level_y;
-    int mouse_x;
-    int mouse_y;
+    int last_bomb_x;
+    int last_bomb_y;
     int frame;
 
     String name;
     char id;
+    int gold;
     int life;
     int bombNumber;
     int power;
@@ -20,17 +21,6 @@ public class Player extends Character {
     public Room getRoom() {return room;}
     public int getLevel_x() {return level_x;}
     public int getLevel_y() {return level_y;}
-    public int getMouse_x() {return mouse_x;}
-    public int getMouse_y() {return mouse_y;}
-
-    public void setXY(int x, int y) {
-        int x_ = (int) x / Resources.BLOCK_SIZE;
-        int y_ = (int) y / Resources.BLOCK_SIZE;
-        if (!room.blocked(x_, y_)) {
-            mouse_x = x_;
-            mouse_y = y_;
-        }
-    }
     public void setID(int i) {this.id = (char)i;}
     public void setRoom(int x, int y, Room room) {
         level_x = x;
@@ -42,9 +32,11 @@ public class Player extends Character {
         super.Init(room, animation, run, dead);
         level_x = 0;
         level_y = 0;
-        mouse_x = 0;
-        mouse_y = 0;
+        last_bomb_x = -1;
+        level_y = -1;
+        this.gold = 0;
         this.immortal_timer = 0;
+        this.speed = 6;
         this.height = 60;
         this.width = 52;
         this.frame = 0;
@@ -61,14 +53,31 @@ public class Player extends Character {
 
     public void putBomb() {
         System.out.println("pip");
-        int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
-        int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-        room.putBomb(x, y, bombNumber , power, id);
+        last_bomb_x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
+        last_bomb_y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
+        room.putBomb(last_bomb_x, last_bomb_y, bombNumber , power, id);
     }
+
+    public void upPressed() {up = true;}
+    public void downPressed() {down = true;}
+    public void rightPressed() {
+        right = true;
+        flip = false;
+    }
+    public void leftPressed() {
+        left = true;
+        flip = true;
+    }
+
+    public void upReleased() {up = false;}
+    public void downReleased() {down = false;}
+    public void rightReleased() {right = false;}
+    public void leftReleased() {left = false;}
 
     private void pickItem() {
         int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
         int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
+        gold += room.getCoin(x, y);
         switch (room.getItem(x, y)) {
             case 0 -> {
                 dead();
@@ -104,33 +113,29 @@ public class Player extends Character {
         life--;
     }
 
-    @Override
     protected int update() {
         if (immortal_timer > 0) immortal_timer--;
-        if (life == 0) {
-            if (frame >= 11) {
-                return -1;
-            }
+        if (life == 0 && frame >= 11) {
+            return -1;
         } else {
             if (immortal_timer == 0) {
                 pickItem();
-                if (room.isMeetEnemy(x_room, y_room)) {
-                    dead();
-                }
+                if (room.isMeetEnemy(x_room, y_room)) dead();
             }
             if (frame % 4 == 0)
-            findTheWay(mouse_x, mouse_y, room.getType() == Room.DUNGEON);
-            move();
+            findTheWay(room.getType() == Room.DUNGEON);
+
             if (up)     this.location_y -= this.speed;
             if (down)   this.location_y += this.speed;
-            if (right)  {
-                this.location_x += this.speed;
-                flip = false;
-            }
-            if (left)   {
-                this.location_x -= this.speed;
-                flip = true;
-            }
+            if (right)  this.location_x += this.speed;
+            if (left)   this.location_x -= this.speed;
+            int x1 = (int) ((location_x + 10)  / Resources.BLOCK_SIZE); // 4 điểm tạo nên 1 hình chữ nhật
+            int x2 = (int) ((location_x + 40) / Resources.BLOCK_SIZE); // hình chữ nhật đó là cơ thể vật lý của nhân vật
+            int y1 = (int) ((location_y + 40) / Resources.BLOCK_SIZE); // 4 điểm được chuyển từ tọa độ trên màn hình location thành tọa độ trên map
+            int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE); // kiểm tra va chạm bằng cách kiểm tra 4 điểm này có vào ô bị chặn ko
+
+            collisionTest(x1, x2, y1, y2);
+
             int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
             int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
             if (room.isExit(x,y) != -1 ) {
@@ -138,11 +143,58 @@ public class Player extends Character {
                     in_room = false;
                     return room.isExit(x,y);
                 }
-            } else {
-                in_room  = true;
-            }
+            } else in_room  = true;
+            if (room.get(x, y).charAt(0) == '+') return 5;
         }
         return 0;
+    }
+
+    private void collisionTest(int x1, int x2, int y1, int y2) {
+        int a = 0;
+        if (blocked(x1, y1)) {
+            this.location_y += this.speed / 2;
+            this.location_x += this.speed / 2;
+            a++;
+        }
+        if (blocked(x2, y1)) {
+            this.location_y += this.speed / 2;
+            this.location_x -= this.speed / 2;
+            a--;
+        }
+        if (blocked(x1, y2)) {
+            this.location_y -= this.speed / 2;
+            this.location_x += this.speed / 2;
+            a--;
+        }
+        if (blocked(x2, y2)) {
+            this.location_y -= this.speed / 2;
+            this.location_x -= this.speed / 2;
+            a++;
+        }
+
+        if (a == 2 || a == -2) {
+            if (up)     this.location_y += this.speed;
+            if (down)   this.location_y -= this.speed;
+            if (right)  this.location_x -= this.speed;
+            if (left)   this.location_x += this.speed;
+        }
+
+        if (a == 1 || a == -1) {
+            if (up)     this.location_y += this.speed / 2;
+            if (down)   this.location_y -= this.speed / 2;
+            if (right)  this.location_x -= this.speed / 2;
+            if (left)   this.location_x += this.speed / 2;
+        }
+
+        if (((x1 != last_bomb_x) && (x2 != last_bomb_x)) || ((y1 != last_bomb_y) && (y2 != last_bomb_y))) {
+            this.last_bomb_x = -1;
+            this.last_bomb_y = -1;
+        }
+    }
+
+    private boolean blocked(int x, int y) {
+        if (x == last_bomb_x && y == last_bomb_y) return false;
+        return room.blocked(x, y);
     }
 
     protected void draw(Graphics g) {
@@ -168,20 +220,5 @@ public class Player extends Character {
             if (flip)   g.drawImage(this.run_animation[1], location_x + width, location_y + 2, -width, height, null);
             else        g.drawImage(this.run_animation[1], location_x , location_y + 2, width, height, null);
         }
-    }
-}
-
-
-class node {
-    public int x;
-    public int y;
-    public int z;
-    public int count;
-
-    node(int x, int y, int z, int count) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.count = count;
     }
 }

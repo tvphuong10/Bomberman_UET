@@ -11,7 +11,7 @@ public class Enemy extends Character {
         frame = 0;
     }
 
-    Enemy (int x, int y, Room room) {
+    Enemy (int x, int y, Room room,int level) {
         super();
         super.Init(room, Resources.Animation.BAT.getAnimation(),
                 Resources.Animation.RUN.getAnimation(),
@@ -24,10 +24,10 @@ public class Enemy extends Character {
         this.location_x = x * Resources.BLOCK_SIZE;
         this.location_y = y * Resources.BLOCK_SIZE;
         frame = 0;
-        this.speed = 10;
+        this.speed = 10 * level;
     }
 
-    private void burn() {
+    protected void burn() {
         int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
         int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
         if(room.get(x, y).charAt(0) == 'F') {
@@ -35,10 +35,12 @@ public class Enemy extends Character {
         }
     }
 
-    @Override
-    protected int update() {
+    protected int update(Player player) {
         if (is_dead) {
-            if (frame >= 11) {
+            if (frame >= 20) {
+                int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
+                int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
+                room.makeCoin(x, y);
                 return -1;
             }
         } else {
@@ -52,10 +54,6 @@ public class Enemy extends Character {
                 if (r == 3 && room.get(x_room, y_room - 1).charAt(0) == ' ') y_room--;
             }
             move();
-            if (up)     this.location_y -= this.speed;
-            if (down)   this.location_y += this.speed;
-            if (right)  this.location_x += this.speed;
-            if (left)   this.location_x -= this.speed;
         }
         return 0;
     }
@@ -63,8 +61,7 @@ public class Enemy extends Character {
     protected void draw(Graphics g) {
         frame ++;
         if (is_dead) {
-            if (frame >= 12) frame --;
-            else g.drawImage(this.dead_animation[frame / 3] ,location_x, location_y ,width ,height ,null);
+            if (frame < 12)  g.drawImage(this.dead_animation[frame / 3] ,location_x, location_y ,width ,height ,null);
         } else {
             if (frame >= 12) frame = 0;
             if (flip)   g.drawImage(this.animation[frame / 3] ,location_x + width ,location_y ,-width ,height ,null);

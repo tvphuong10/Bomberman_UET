@@ -13,6 +13,8 @@ public class Room extends Object {
     private int map_height;
     private int map_weigh;
     private int type;
+    private int level;
+    protected boolean show;
 
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
@@ -20,8 +22,10 @@ public class Room extends Object {
     public int getMapHeight() {return map_height;}
     public int getMapWeigh() {return map_weigh;}
 
-    public Room(int type) {
+    public Room(int type, int level) {
         this.type = type;
+        this.level = level;
+        show = false;
         String[][] s;
         if (type == 0) {
             s = new String[][]{
@@ -35,21 +39,73 @@ public class Room extends Object {
                     {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
             };
         } else if (type == 1) {
-            s = new String[][]{
-                    {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
-                    {"#", "B", " ", " ", " ", " ", "/", " ", " ", " ", " ", "B", "#"},
-                    {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
-                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
-                    {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", "/", "W", " ", "W", "B", "W", "B", "W", " ", "W", "/", "2"},
-                    {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
-                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", "B", "W", " ", "W", " ", "W", " ", "W", " ", "W", "B", "#"},
-                    {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
-                    {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
-            };
+            Random ran = new Random();
+            int r = ran.nextInt(4);
+            if (r == 0) {
+                s = new String[][]{
+                        {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
+                        {"#", "B", " ", " ", " ", " ", "/", " ", " ", " ", " ", "B", "#"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", "W", " ", "W", "G", "W", "G", "W", " ", "W", "/", "2"},
+                        {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", "B", "W", " ", "W", " ", "W", " ", "W", " ", "W", "B", "#"},
+                        {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
+                        {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
+                };
+            } else if (r == 1) {
+                s = new String[][]{
+                        {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
+                        {"#", "B", " ", "G", "#", " ", "/", " ", "#", "B", " ", "B", "#"},
+                        {"#", " ", " ", " ", "#", " ", "W", " ", "#", " ", " ", " ", "#"},
+                        {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
+                        {"#", "#", "#", " ", "#", " ", "W", " ", "#", " ", "#", "#", "#"},
+                        {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", "W", " ", "W", "B", "W", "B", "W", " ", "W", "/", "2"},
+                        {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"#", "#", "#", " ", "#", " ", "W", " ", "#", " ", "#", "#", "#"},
+                        {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
+                        {"#", "B", " ", " ", "#", " ", "W", " ", "#", " ", " ", "B", "#"},
+                        {"#", " ", " ", "B", "#", " ", "/", " ", "#", "G", " ", " ", "#"},
+                        {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
+                };
+            } else if ( r == 2) {
+                s = new String[][]{
+                        {"#", "#", "#", "1", "1", "1", "#", "#", "#"},
+                        {"#", "B", " ", " ", "/", " ", " ", "G", "#"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"4", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", "W", "B", "W", "B", "W", "/", "2"},
+                        {"4", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", "B", "W", " ", "W", " ", "W", "B", "#"},
+                        {"#", " ", " ", " ", "/", " ", " ", " ", "#"},
+                        {"#", "#", "#", "3", "3", "3", "#", "#", "#"}
+                };
+            } else {
+                s = new String[][]{
+                        {"#", "#", "#", "1", "1", "1", "#", "#", "#"},
+                        {"#", " ", " ", " ", "/", " ", " ", " ", "#"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", " ", "W", "B", " ", "B", "W", " ", "#"},
+                        {"4", " ", " ", " ", "B", " ", " ", " ", "2"},
+                        {"4", "/", "W", "B", " ", "B", "W", "/", "2"},
+                        {"4", " ", " ", " ", "B", " ", " ", " ", "2"},
+                        {"#", " ", "W", "B", " ", "B", "W", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
+                        {"#", " ", " ", " ", "/", " ", " ", " ", "#"},
+                        {"#", "#", "#", "3", "3", "3", "#", "#", "#"}
+                };
+            }
         } else if (type == 2) {
             s = new String[][]{
                     {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
@@ -71,7 +127,7 @@ public class Room extends Object {
                     {"#", "#", "#", "1", "1", "1", "#", "#", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", " ", " ", " ", " ", " ", " ", " ", "2"},
+                    {"4", " ", " ", " ", "+", " ", " ", " ", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", "#", "#", "3", "3", "3", "#", "#", "#"}
@@ -103,7 +159,10 @@ public class Room extends Object {
                         map[j][i] = " ";
                     } else if (c == 'B') {
                         map[j][i] = " ";
-                        enemies.add(new Enemy(i, j, this));
+                        enemies.add(new Enemy(i, j, this, level));
+                    } else if (c == 'G') {
+                        map[j][i] = " ";
+                        enemies.add(new Ghost(i, j, this, level));
                     } else if ((c == '1' && up) || (c == '2' && right) || (c == '3' && down) || (c == '4' && left)) {
                         //map[j][i] = " ";
                     } else if (c == '1' || c == '2' || c == '3' || c == '4') {
@@ -125,6 +184,23 @@ public class Room extends Object {
             }
         }
         return false;
+    }
+
+    public void makeCoin(int x, int y) {
+        if (map[y][x].charAt(0) == 'I') {
+            if (map[y][x].charAt(1) == 'G') {
+                map[y][x] = "IG" + (char) (map[y][x].charAt(2) + 1);
+            }
+        } else {
+            map[y][x] = "IG" + (char) 1;
+        }
+    }
+
+    public int getCoin(int x, int y) {
+        if (map[y][x].charAt(0) == 'I' && map[y][x].charAt(1) == 'G') {
+            return map[y][x].charAt(2);
+        }
+        else return 0;
     }
 
     public String get(int x, int y) {
@@ -172,12 +248,8 @@ public class Room extends Object {
                     case 'W' -> g.drawImage(Resources.Images.HARD_WALL.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case 'X' -> g.drawImage(Resources.Images.SOFT_WALL.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case '#' -> g.drawImage(Resources.Images.WALL2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
-                    default  -> {
-                        if (j == player.getMouse_y() && i == player.getMouse_x()) {
-                            g.drawImage(Resources.Images.FLOOR2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
-                        } else
-                            g.drawImage(Resources.Images.FLOOR.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
-                    }
+                    case '+' -> g.drawImage(Resources.Images.GATE.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
+                    default  -> g.drawImage(Resources.Images.FLOOR.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                 }
 
                 switch(map[j][i].charAt(0)) {
@@ -185,6 +257,7 @@ public class Room extends Object {
                     case 'B' -> g.drawImage(Resources.Images.BOMB.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case 'I' -> {
                         switch (map[j][i].charAt(1)) {
+                            case 'G' -> g.drawImage(Resources.Images.COIN.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                             case '1' -> g.drawImage(Resources.Images.FIREUP.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                             case '2' -> g.drawImage(Resources.Images.SPEEDUP.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                             case '3' -> g.drawImage(Resources.Images.BOMBUP.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
@@ -203,7 +276,7 @@ public class Room extends Object {
         }
     }
 
-    public int update() {
+    public int update(Player player) {
         for (int i = 0; i < map_weigh; i++) {
             for (int j = 0; j < map_height; j++) {
                 if (map_status[j][i] >= 0) {
@@ -232,7 +305,7 @@ public class Room extends Object {
             }
         }
         for (int i = 0; i < enemies.size(); i++) {
-            int u = enemies.get(i).update();
+            int u = enemies.get(i).update(player);
             if (u < 0) {
                 enemies.remove(i);
                 i--;
@@ -269,18 +342,25 @@ public class Room extends Object {
         }
     }
 
+    /**
+     * bat kha xam pham
+     * @param j
+     * @param i
+     * @return
+     */
+
     private boolean immortal(int j, int i) {
-        if(j < 0 || i < 0 || j >= map_height || i >= map_weigh) return true;
-        if(map[j][i].charAt(0) == 'X') {
+        if(j <= 0 || i <= 0 || j >= map_height - 1 || i >= map_weigh - 1) return true; // moi phan tu ngoai map deu bat kha xam pham
+        if(map[j][i].charAt(0) == 'X') { // gap thung thi dot chay thung do X là thung, S là thung dang chay
             map[j][i] = "S";
             map_status[j][i] = 3;
         }
 
-        if(map[j][i].charAt(0) == 'B') {
+        if(map[j][i].charAt(0) == 'B') { // neu gap bomb thi kich no qua bomb do
             explosion(j, i);
         }
 
-        if(map[j][i].charAt(0) == 'W' || map[j][i].charAt(0) == '#' || map[j][i].charAt(0) == 'S')
+        if(map[j][i].charAt(0) == 'W' || map[j][i].charAt(0) == '#' || map[j][i].charAt(0) == 'S' || map[j][i].charAt(0) == '+') // neu gap tuong thi tra ve true
             return true;
         else return false;
     }
