@@ -141,6 +141,13 @@ public class Room extends Object {
         this.location_y = 0;
     }
 
+    /**
+     * ham kiem tra nguoi choi di ra ngoai room.
+     * @param x
+     * @param y
+     * @return 1-len 2-phai 3-xuong 4-trai -1-chua ra ngoai
+     */
+
     public int isExit(int x, int y) {
         if (map[y][x].charAt(0) == '1') return 1;
         else if (map[y][x].charAt(0) == '2') return 2;
@@ -149,27 +156,34 @@ public class Room extends Object {
         else return -1;
     }
 
+    /**
+     * xay phong
+     * @param up co phong o tren khong
+     * @param right co phong ben phai khong
+     * @param down co phong o duoi ko
+     * @param left co phong ben trai ko
+     */
     public void buildRoom(boolean up, boolean right, boolean down, boolean left) {
         Random ran = new Random();
         for (int j = 0; j < map_height; j++) {
             for (int i = 0; i < map_weigh; i++) {
-                if (map[j][i].charAt(0) != '#' && map[j][i].charAt(0) != 'W') {
+                if (map[j][i].charAt(0) != '#' && map[j][i].charAt(0) != 'W') { // thay doi tat ca ki hieu tru '#' va 'W'
                     char c = map[j][i].charAt(0);
-                    if ( c == '/') {
+                    if ( c == '/') {                                            // '/' thung se khong sinh ra o vi tri nay
                         map[j][i] = " ";
-                    } else if (c == 'B') {
+                    } else if (c == 'B') {                                      // 'B' sinh doi
                         map[j][i] = " ";
                         enemies.add(new Enemy(i, j, this, level));
-                    } else if (c == 'G') {
+                    } else if (c == 'G') {                                      // 'G' sinh ma
                         map[j][i] = " ";
                         enemies.add(new Ghost(i, j, this, level));
                     } else if ((c == '1' && up) || (c == '2' && right) || (c == '3' && down) || (c == '4' && left)) {
                         //map[j][i] = " ";
-                    } else if (c == '1' || c == '2' || c == '3' || c == '4') {
+                    } else if (c == '1' || c == '2' || c == '3' || c == '4') {  // neu khong co phong ben canh thi xoa cua
                         map[j][i] = "#";
                     } else {
                         if (ran.nextInt() % 2 != 0 && type == DUNGEON) {
-                            map[j][i] = "X";
+                            map[j][i] = "X";                                    // con lai thay bang thung
                         }
                     }
                 }
@@ -177,6 +191,12 @@ public class Room extends Object {
         }
     }
 
+    /**
+     * kiem tra va cham voi quai.
+     * @param x
+     * @param y
+     * @return true neu va cham
+     */
     public boolean isMeetEnemy(int x, int y) {
         for (Enemy e : enemies) {
             if (x == e.x_room && y == e.y_room) {
@@ -185,6 +205,12 @@ public class Room extends Object {
         }
         return false;
     }
+
+    /**
+     * roi tien, neu truoc do o do da co tien roi thi tang gia tri dong tien do len 1.
+     * @param x
+     * @param y
+     */
 
     public void makeCoin(int x, int y) {
         if (map[y][x].charAt(0) == 'I') {
@@ -196,6 +222,13 @@ public class Room extends Object {
         }
     }
 
+    /**
+     * nhat tien.
+     * @param x
+     * @param y
+     * @return gia tri cua dong tien;
+     */
+
     public int getCoin(int x, int y) {
         if (map[y][x].charAt(0) == 'I' && map[y][x].charAt(1) == 'G') {
             return map[y][x].charAt(2);
@@ -203,10 +236,23 @@ public class Room extends Object {
         else return 0;
     }
 
+    /**
+     * lay mot phan tu trong map.
+     * @param x
+     * @param y
+     * @return phan tu can lay (String)
+     */
     public String get(int x, int y) {
         if (x < 0 || x >= map_weigh || y < 0 || y >= map_height) return "#";
         return map[y][x];
     }
+
+    /**
+     * bi chan.
+     * @param x
+     * @param y
+     * @return true neu bi chan.
+     */
 
     public boolean blocked(int x, int y) {
         if (x >= map_weigh || x < 0 || y >= map_height || y < 0) return true;
@@ -216,6 +262,13 @@ public class Room extends Object {
                 || map[y][x].charAt(0) == '#';
     }
 
+    /**
+     * nhat item.
+     * @param x toa do x
+     * @param y toa do y
+     * @return 0 neu va cham voi lua, >0 neu nhat duoc item, -1 neu khong nhat duoc gi.
+     */
+
     public int getItem(int x, int y) {
         if (map[y][x].charAt(0) == 'F') return 0;
         if (map[y][x].charAt(0) == 'I') {
@@ -224,6 +277,15 @@ public class Room extends Object {
             return a;
         } else return -1;
     }
+
+    /**
+     * dat bomb xuong.
+     * @param x toa do x
+     * @param y toa do y
+     * @param bomb_number so bomb max
+     * @param pow pham vi qua bomb
+     * @param id ma nhan vat (moi nhan vat 1 ki hieu khac nhau)
+     */
 
     public void putBomb(int x, int y,int bomb_number , int pow, char id) {
         for (int j = 0; j < map_height; j++) {
@@ -239,6 +301,12 @@ public class Room extends Object {
             map_status[y][x] = 13;
         }
     }
+
+    /**
+     * ve room.
+     * @param g g
+     * @param player nguoi choi
+     */
 
 
     public void draw(Graphics g, Player player) {
@@ -276,6 +344,11 @@ public class Room extends Object {
         }
     }
 
+    /**
+     * cap nhat room.
+     * @param player nguoi choi
+     * @return 0 neu khong co gi say ra
+     */
     public int update(Player player) {
         for (int i = 0; i < map_weigh; i++) {
             for (int j = 0; j < map_height; j++) {
@@ -314,6 +387,12 @@ public class Room extends Object {
         return 0;
     }
 
+    /**
+     * phat no
+     * @param j toa do y
+     * @param i toa do x
+     */
+
     private void explosion(int j, int i) {
         int pow = map[j][i].charAt(1);
 
@@ -344,9 +423,9 @@ public class Room extends Object {
 
     /**
      * bat kha xam pham
-     * @param j
-     * @param i
-     * @return
+     * @param j toa do y
+     * @param i toa do x
+     * @return true neu vat the khong the bi pha huy.
      */
 
     private boolean immortal(int j, int i) {

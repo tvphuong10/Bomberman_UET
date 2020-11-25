@@ -43,6 +43,9 @@ public abstract class Character extends Object {
         y_room = 0;
     }
 
+    /**
+     * thiet lap up down left right sau do di chuyen.
+     */
     public void move () {
         int x = x_room * Resources.BLOCK_SIZE + 25;
         int y = y_room * Resources.BLOCK_SIZE + 25;
@@ -63,20 +66,27 @@ public abstract class Character extends Object {
         if (left)  {this.location_x -= this.speed; flip = true; }
     }
 
+    /**
+     * dieu kien de findTheWay() hoat dong (chi can overwrite lai ham nay).
+     * @param x toa do x o dang xet.
+     * @param y toa do y o dang xet.
+     * @return true neu o thoa man.
+     */
     protected boolean condition(int x, int y) {
         return false;
     }
 
-    public void findTheWay(boolean careful) {
-        if (careful) {
-            x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
-            y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-        }
+    /**
+     * tim duong den noi thua man dieu kien ham condition().
+     * @param range pham vi.
+     */
+
+    public void findTheWay(int range) {
         que = new LinkedList<>();
-        if (!blocked(x_room, y_room - 1))    que.add(new node(x_room, y_room - 1, 0, 6));
-        if (!blocked(x_room, y_room + 1))    que.add(new node(x_room, y_room + 1, 2, 6));
-        if (!blocked(x_room + 1, y_room))    que.add(new node(x_room + 1, y_room, 1, 6));
-        if (!blocked(x_room - 1, y_room))    que.add(new node(x_room - 1, y_room, 3, 6));
+        if (!blocked(x_room, y_room - 1))    que.add(new node(x_room, y_room - 1, 0, range));
+        if (!blocked(x_room, y_room + 1))    que.add(new node(x_room, y_room + 1, 2, range));
+        if (!blocked(x_room + 1, y_room))    que.add(new node(x_room + 1, y_room, 1, range));
+        if (!blocked(x_room - 1, y_room))    que.add(new node(x_room - 1, y_room, 3, range));
         if (que.size() == 0) return;
         while (!que.isEmpty()) {
             node n = que.poll();
@@ -97,6 +107,13 @@ public abstract class Character extends Object {
         }
     }
 
+    /**
+     * bi chan.
+     * @param x toa do x.
+     * @param y toa do y.
+     * @return true neu bi chan.
+     */
+
     private boolean blocked(int x, int y) {
         if (x == x_room && y == y_room) return true;
         if (room.get(x, y).charAt(0) == 'F') return true;
@@ -104,6 +121,10 @@ public abstract class Character extends Object {
     }
 
 }
+
+/**
+ * node de phuc vu ham findTheWay().
+ */
 
 class node {
     public int x;

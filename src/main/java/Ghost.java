@@ -9,6 +9,12 @@ public class Ghost extends Enemy {
         this.dead_animation = Resources.Animation.GHOSTDEAD.getAnimation();
     }
 
+    /**
+     * override lai ham condition tra ve true neu tim thay nhan vat.
+     * @param x toa do x o dang xet.
+     * @param y toa do y o dang xet.
+     * @return true neu x, y dung la toa do nhan vat.
+     */
     @Override
     protected boolean condition(int x, int y) {
         int x_  = (int) ((player.location_x + 24) / Resources.BLOCK_SIZE);
@@ -16,6 +22,11 @@ public class Ghost extends Enemy {
         return x == x_ && y == y_;
     }
 
+    /**
+     * cap nhat.
+     * @param player vi tri nguoi choi (dung cho nhung con can vi tri nguoi choi de di chuyen)
+     * @return
+     */
     @Override
     protected int update(Player player) {
         this.player = player;
@@ -23,13 +34,13 @@ public class Ghost extends Enemy {
             if (frame >= 20) {
                 int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
                 int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-                room.makeCoin(x, y);
+                room.makeCoin(x, y); // chet roi tien
                 return -1;
             }
         } else {
             burn();
             if (!up && !right && !down && !left)
-            findTheWay(room.getType() == Room.DUNGEON);
+            findTheWay(6);
             move();
         }
         return 0;

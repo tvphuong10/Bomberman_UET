@@ -122,8 +122,6 @@ public class Player extends Character {
                 pickItem();
                 if (room.isMeetEnemy(x_room, y_room)) dead();
             }
-            if (frame % 4 == 0)
-            findTheWay(room.getType() == Room.DUNGEON);
 
             if (up)     this.location_y -= this.speed;
             if (down)   this.location_y += this.speed;

@@ -27,6 +27,9 @@ public class Enemy extends Character {
         this.speed = 10 * level;
     }
 
+    /**
+     * kiem tra nhan vat co di vao o lua ko.
+     */
     protected void burn() {
         int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
         int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
@@ -35,12 +38,18 @@ public class Enemy extends Character {
         }
     }
 
+    /**
+     * cap nhat
+     * @param player vi tri nguoi choi (dung cho nhung con can vi tri nguoi choi de di chuyen)
+     * @return -1 neu bi giet.
+     */
+
     protected int update(Player player) {
         if (is_dead) {
             if (frame >= 20) {
                 int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
                 int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-                room.makeCoin(x, y);
+                room.makeCoin(x, y); // chet roi tien
                 return -1;
             }
         } else {
