@@ -23,14 +23,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(Resources.SCREEN_W, Resources.SCREEN_H));
-        this.addKeyListener(new GameController(this, level.getPlayer()));
-        this.addMouseListener(new GameClick(level.getPlayer()));
+        this.addKeyListener(new GameController(this, level.getPlayer(), level));
+        this.addMouseListener(new GameClick(level));
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //g.drawImage(Resources.Images.BACKGROUND.getImage(), 0, 0, null);
+        g.drawImage(Resources.Images.BACKGROUND.getImage(), 0, 0, null);
         level.draw(g);
     }
 
@@ -49,10 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
             level.update();
 
             this.repaint();
-
-            if (i > 10000) {
-                running = false;
-            }
+            
         }
 
         System.exit(0);
@@ -79,10 +76,12 @@ public class GamePanel extends JPanel implements Runnable {
 class GameController implements KeyListener {
     private GamePanel game_panel;
     private Player player;
+    private Level level;
 
-    GameController(GamePanel g, Player p) {
+    GameController(GamePanel g, Player p, Level level) {
         this.game_panel = g;
         this.player = p;
+        this.level = level;
     }
 
     @Override
@@ -100,7 +99,7 @@ class GameController implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_W) player.upPressed();
 
         if (e.getKeyCode() == KeyEvent.VK_SPACE) player.putBomb();
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) game_panel.escape();
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) level.pause();
     }
 
     /**
@@ -118,33 +117,32 @@ class GameController implements KeyListener {
 
 
 class GameClick implements MouseListener {
-    private Player player;
+    private Level level;
 
-    GameClick(Player player) {this.player = player;}
+    GameClick(Level level) {
+        this.level = level;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        player.putBomb();
+        if (level.isPause())
+            level.getHub().click(e.getX(), e.getY());
     }
 }
 

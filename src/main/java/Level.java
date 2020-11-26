@@ -7,9 +7,15 @@ public class Level extends Object {
     private Room[][] rooms;
     private Player player;
     private int level;
+    private boolean pause;
+    private Hub hub;
 
     public Player getPlayer() {return player;}
 
+    public Hub getHub() {
+        return hub;
+    }
+    public boolean isPause() {return pause;}
 
     /**
      * khoi tao level, chon rooms[4][2] la phong khoi dau.
@@ -26,6 +32,12 @@ public class Level extends Object {
                 Resources.Animation.RUN.getAnimation(),
                 Resources.Animation.TEEMODEAD.getAnimation());
         player.setRoom(4,2,rooms[4][2]);
+        hub = new Hub(77, 60, player);
+    }
+
+    public void pause() {
+        if (pause) pause = false;
+        else pause = true;
     }
 
     /**
@@ -117,36 +129,41 @@ public class Level extends Object {
      * @return 0 neu khong co gi say ra.
      */
     protected int update() {
-        i++;
-        if (i % 4 == 0) {
-            for (int i = 0; i < LEVEL_SIZE; i++) {
-                for (int j = 0; j < LEVEL_SIZE; j++) {
-                    if (rooms[i][j] != null) {
-                        rooms[i][j].update(player);
+        if (pause) {
+
+        }
+        else {
+            i++;
+            int u = player.update();
+            if (u > 0) {
+                int y = player.getLevel_y();
+                int x = player.getLevel_x();
+                if (u == 1) x--;
+                else if (u == 2) y++;
+                else if (u == 3) x++;
+                else if (u == 4) y--;
+                else if (u == 5) {
+                    x = 4;
+                    y = 2;
+                    level++;
+                    rooms = new Room[LEVEL_SIZE][LEVEL_SIZE];
+                    rooms[4][2] = new Room(Room.START, level);
+                    buildLevel();
+                }
+                player.setRoom(x, y, rooms[x][y]);
+                rooms[x][y].show = true;
+                player.enterRoom((u + 1) % 4 + 1);
+            }
+            if (i % 4 == 0 || u > 0) {
+                for (int i = 0; i < LEVEL_SIZE; i++) {
+                    for (int j = 0; j < LEVEL_SIZE; j++) {
+                        if (rooms[i][j] != null) {
+                            rooms[i][j].update(player);
+                        }
                     }
                 }
+                i = 0;
             }
-            i = 0;
-        }
-        int u = player.update();
-        if (u > 0) {
-            int y = player.getLevel_y();
-            int x = player.getLevel_x();
-            if (u == 1) x--;
-            else if (u == 2) y++;
-            else if (u == 3) x++;
-            else if (u == 4) y--;
-            else if (u == 5) {
-                x = 4;
-                y = 2;
-                level++;
-                rooms = new Room[LEVEL_SIZE][LEVEL_SIZE];
-                rooms[4][2] = new Room(Room.START, level);
-                buildLevel();
-            }
-            player.setRoom(x, y, rooms[x][y]);
-            rooms[x][y].show = true;
-            player.enterRoom((u + 1) % 4 + 1);
         }
         return 0;
     }
@@ -165,6 +182,10 @@ public class Level extends Object {
             }
         }
         drawHub(g);
+
+        if (pause) {
+            hub.draw(g);
+        }
     }
 
     /**
@@ -173,13 +194,15 @@ public class Level extends Object {
      */
 
     private void drawHub(Graphics g) {
-        g.setColor(Color.ORANGE);
-        g.setFont(new Font("Arial",Font.BOLD, 24));
-        g.drawString("Gold: " + player.gold , 680, 220);
         g.setColor(Color.GRAY);
-        g.drawString("Life: " + player.life , 680, 260);
-        g.drawString("Bomb: " + player.bombNumber , 680, 300);
-        g.drawString("Pow: " + player.power , 680, 340);
-        g.drawString("Speed: " + player.speed , 680, 380);
+        g.setFont(new Font("Arial",Font.BOLD, 24));
+        g.drawString("Level: " + level , 680, 260);
+        g.setColor(Color.ORANGE);
+        g.drawString("Gold: " + player.gold , 680, 300);
+        g.setColor(Color.GRAY);
+        g.drawString("Life: " + player.life , 680, 340);
+        g.drawString("Bomb: " + player.bombNumber , 680, 380);
+        g.drawString("Pow: " + player.power , 680, 420);
+        g.drawString("Speed: " + player.speed , 680, 460);
     }
 }

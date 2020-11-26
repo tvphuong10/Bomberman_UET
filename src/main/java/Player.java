@@ -36,7 +36,7 @@ public class Player extends Character {
         level_y = -1;
         this.gold = 0;
         this.immortal_timer = 0;
-        this.speed = 6;
+        this.speed = 4;
         this.height = 60;
         this.width = 52;
         this.frame = 0;
@@ -134,15 +134,15 @@ public class Player extends Character {
 
             collisionTest(x1, x2, y1, y2);
 
-            int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
-            int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-            if (room.isExit(x,y) != -1 ) {
+            x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
+            y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
+            if (room.isExit(x_room,y_room) != -1 ) {
                 if (in_room) {
                     in_room = false;
-                    return room.isExit(x,y);
+                    return room.isExit(x_room,y_room);
                 }
             } else in_room  = true;
-            if (room.get(x, y).charAt(0) == '+') return 5;
+            if (room.get(x_room, y_room).charAt(0) == '+') return 5;
         }
         return 0;
     }

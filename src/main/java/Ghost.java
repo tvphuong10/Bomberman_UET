@@ -17,8 +17,8 @@ public class Ghost extends Enemy {
      */
     @Override
     protected boolean condition(int x, int y) {
-        int x_  = (int) ((player.location_x + 24) / Resources.BLOCK_SIZE);
-        int y_  = (int) ((player.location_y + 48) / Resources.BLOCK_SIZE);
+        int x_  = player.x_room;
+        int y_  = player.y_room;
         return x == x_ && y == y_;
     }
 

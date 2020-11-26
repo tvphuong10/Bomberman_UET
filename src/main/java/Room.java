@@ -199,7 +199,9 @@ public class Room extends Object {
      */
     public boolean isMeetEnemy(int x, int y) {
         for (Enemy e : enemies) {
-            if (x == e.x_room && y == e.y_room) {
+            int x_ = (int) ((e.location_x + 24) / Resources.BLOCK_SIZE);
+            int y_ = (int) ((e.location_y + 48) / Resources.BLOCK_SIZE);
+            if (x == x_ && y == y_) {
                 return true;
             }
         }

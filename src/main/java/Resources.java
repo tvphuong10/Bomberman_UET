@@ -14,6 +14,9 @@ public class Resources {
 
     public enum Images {
         BACKGROUND,
+        SHOP,
+        BUTTON,
+        BUTTONS,
         GATE,
         MINIMAP,
         MINIMAP2,
@@ -89,6 +92,11 @@ public class Resources {
             Images.BOMB.image = ImageIO.read(Resources.class.getResource(res + "Musroom.png"));
             Images.MINIMAP2.image = ImageIO.read(Resources.class.getResource(res + "Map2.png"));
             Images.MINIMAP.image = ImageIO.read(Resources.class.getResource(res + "Map.png"));
+
+            res = "/Hub/";
+            Images.SHOP.image = ImageIO.read(Resources.class.getResource(res + "Shop.png"));
+            Images.BUTTON.image = ImageIO.read(Resources.class.getResource(res + "ShopButton.png"));
+            Images.BUTTONS.image = ImageIO.read(Resources.class.getResource(res + "ShopButtonS.png"));
 
             res = "/Animations/";
             for (int i = 1; i <= 4; i++) {
