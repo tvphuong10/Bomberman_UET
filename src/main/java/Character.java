@@ -12,6 +12,7 @@ public abstract class Character extends Object {
     boolean is_dead;
     boolean flip;
 
+    int Frozen;
     int speed;
     int x_room;
     int y_room;
@@ -38,9 +39,11 @@ public abstract class Character extends Object {
         left = false;
         is_dead = false;
         flip = false;
+        Frozen = 0;
         speed = 4;
         x_room = 0;
         y_room = 0;
+
     }
 
     /**
@@ -77,7 +80,7 @@ public abstract class Character extends Object {
     }
 
     /**
-     * tim duong den noi thua man dieu kien ham condition().
+     * tim duong den noi thoa man dieu kien ham condition().
      * @param range pham vi.
      */
 

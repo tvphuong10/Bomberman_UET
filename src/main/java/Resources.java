@@ -55,7 +55,8 @@ public class Resources {
         TEEMO,
         TEEMODEAD,
         GHOST,
-        GHOSTDEAD;
+        GHOSTDEAD,
+        ICE;
 
         private BufferedImage[] animation = new BufferedImage[4];
 
@@ -110,6 +111,7 @@ public class Resources {
                 Animation.BATDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "BatDead" + i + ".png"));
                 Animation.GHOST.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Ghost" + i + ".png"));
                 Animation.GHOSTDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "GhostDead" + i + ".png"));
+                Animation.ICE.animation[i-1] = ImageIO.read(Resources.class.getResource(res + "Iceboss" + i + ".png"));
             }
 
             for (int i = 1; i <= 3; i++) {
