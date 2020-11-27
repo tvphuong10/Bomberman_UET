@@ -8,6 +8,7 @@ public class Level extends Object {
     private Player player;
     private int level;
     private boolean pause;
+    private boolean shop;
     private Hub hub;
 
     public Player getPlayer() {return player;}
@@ -16,6 +17,7 @@ public class Level extends Object {
         return hub;
     }
     public boolean isPause() {return pause;}
+    public boolean isShop() {return shop;}
 
     /**
      * khoi tao level, chon rooms[4][2] la phong khoi dau.
@@ -38,6 +40,11 @@ public class Level extends Object {
     public void pause() {
         if (pause) pause = false;
         else pause = true;
+    }
+
+    public void shoping() {
+        if (shop) shop = false;
+        else shop = true;
     }
 
     /**
@@ -129,10 +136,7 @@ public class Level extends Object {
      * @return 0 neu khong co gi say ra.
      */
     protected int update() {
-        if (pause) {
-
-        }
-        else {
+        if (!pause) {
             i++;
             int u = player.update();
             if (u > 0) {
@@ -153,7 +157,7 @@ public class Level extends Object {
                 player.setRoom(x, y, rooms[x][y]);
                 rooms[x][y].show = true;
                 player.enterRoom((u + 1) % 4 + 1);
-            }
+            } else if (u < 0) replay();
             if (i % 4 == 0 || u > 0) {
                 for (int i = 0; i < LEVEL_SIZE; i++) {
                     for (int j = 0; j < LEVEL_SIZE; j++) {
@@ -166,6 +170,18 @@ public class Level extends Object {
             }
         }
         return 0;
+    }
+
+    private void replay() {
+        level = 1;
+        rooms = new Room[LEVEL_SIZE][LEVEL_SIZE];
+        rooms[4][2] = new Room(Room.START, level);
+        buildLevel();
+        player.Init(rooms[4][2],Resources.Animation.TEEMO.getAnimation(),
+                Resources.Animation.RUN.getAnimation(),
+                Resources.Animation.TEEMODEAD.getAnimation());
+        player.setRoom(4,2,rooms[4][2]);
+        rooms[4][2].show = true;
     }
 
     protected void draw(Graphics g) {
@@ -183,8 +199,13 @@ public class Level extends Object {
         }
         drawHub(g);
 
-        if (pause) {
+        if (player.room.getType() != Room.SHOP) {
+            shop = false;
+        } else if (shop) {
             hub.draw(g);
+        }
+        if (pause) {
+                g.drawImage(Resources.Images.PAUSE.getImage(), 0, 0, null);
         }
     }
 

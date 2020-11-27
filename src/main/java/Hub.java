@@ -16,8 +16,8 @@ public class Hub extends Object {
         this.y = y;
         buttons = new ArrayList<>();
         hub_image = Resources.Images.SHOP.getImage();
-        for (int i = 0; i < 3; i++) {
-            buttons.add(new Button(x + 350, y + 118 + i * 65, i, player));
+        for (int i = 0; i < 6; i++) {
+            buttons.add(new Button(x + 350, y + 118 + i * 50, i, player));
         }
     }
 
@@ -61,7 +61,13 @@ class Button {
         to = from + ran.nextInt(3) + 1;
         if (type == 1 && to % 2 != 0 ) to++;
         if (type == 2 && from % 2 != 0) from++;
-        gold = ran.nextInt((to - from + 1) * 4) + 10;
+        if (type == 5 && from % 2 != 0) from++;
+        if (type > 2) {
+            to = to % 2 + 1;
+            gold = ran.nextInt((to * 4) + 10);
+        }else {
+            gold = ran.nextInt((to - from + 1) * 4) + 10;
+        }
         width = 98;
         height = 46;
         button_image = Resources.Images.BUTTON.getImage();
@@ -84,8 +90,23 @@ class Button {
                     player.gold -= gold;
                     player.speed -= from;
                     player.power += to;
+                } else if (type == 3 && player.power > from) {
+                    player.gold -= gold;
+                    player.power -= from;
+                    player.life += to;
+                } else if (type == 4 && player.bombNumber > from) {
+                    player.gold -= gold;
+                    player.bombNumber -= from;
+                    player.life += to;
+                } else if (type == 5 && player.speed > from) {
+                    player.gold -= gold;
+                    player.speed -= from;
+                    player.life += to;
                 }
-            } else {
+                else {
+                    select = false;
+                }
+            }  else {
                 select = false;
             }
         }
