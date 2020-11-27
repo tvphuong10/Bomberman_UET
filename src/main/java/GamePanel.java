@@ -98,6 +98,7 @@ class GameController implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_D) player.rightPressed();
         if (e.getKeyCode() == KeyEvent.VK_W) player.upPressed();
 
+        if (e.getKeyCode() == KeyEvent.VK_E) level.shoping();
         if (e.getKeyCode() == KeyEvent.VK_SPACE) player.putBomb();
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) level.pause();
     }
@@ -141,7 +142,7 @@ class GameClick implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (level.isPause())
+        if (level.isShop())
             level.getHub().click(e.getX(), e.getY());
     }
 }

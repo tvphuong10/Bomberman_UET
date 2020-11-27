@@ -14,6 +14,7 @@ public class Resources {
 
     public enum Images {
         BACKGROUND,
+        LIGHT,
         SHOP,
         BUTTON,
         BUTTONS,
@@ -31,6 +32,7 @@ public class Resources {
         SOFT_WALL,
         SPEEDUP,
         TRANSITIONS,
+        PAUSE,
         WALL2;
 
         private BufferedImage image = null;
@@ -78,6 +80,7 @@ public class Resources {
             String res = "/Img/";
             System.out.println(Resources.class.getResource(""));
             Images.GATE.image = ImageIO.read(Resources.class.getResource(res + "Gate.png"));
+            Images.LIGHT.image = ImageIO.read(Resources.class.getResource(res + "LIGHT.png"));
             Images.COIN.image = ImageIO.read(Resources.class.getResource(res + "Coin.png"));
             Images.BACKGROUND.image = ImageIO.read(Resources.class.getResource(res + "Bg.png"));
             Images.FLOOR.image = ImageIO.read(Resources.class.getResource(res + "Floor.png"));
@@ -95,6 +98,7 @@ public class Resources {
             Images.MINIMAP.image = ImageIO.read(Resources.class.getResource(res + "Map.png"));
 
             res = "/Hub/";
+            Images.PAUSE.image = ImageIO.read(Resources.class.getResource(res + "Pause.png"));
             Images.SHOP.image = ImageIO.read(Resources.class.getResource(res + "Shop.png"));
             Images.BUTTON.image = ImageIO.read(Resources.class.getResource(res + "ShopButton.png"));
             Images.BUTTONS.image = ImageIO.read(Resources.class.getResource(res + "ShopButtonS.png"));
