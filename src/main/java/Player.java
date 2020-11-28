@@ -9,7 +9,7 @@ public class Player extends Character {
     int last_bomb_x;
     int last_bomb_y;
     int frame;
-    //boolean isfrozen;
+
     String name;
     char id;
     int gold;
@@ -49,7 +49,6 @@ public class Player extends Character {
         this.location_y = 5 * Resources.BLOCK_SIZE;
         this.x_room = 6;
         this.y_room = 5;
-        //this.isfrozen = false;
     }
 
     public void putBomb() {
@@ -121,25 +120,20 @@ public class Player extends Character {
         } else {
             if (immortal_timer == 0) {
                 pickItem();
-                int h = room.isMeetEnemy(x_room, y_room);
-                if (h == 1) dead();
-                if(h == 2) Frozen = 100;
+                if (room.isMeetEnemy(x_room, y_room)) dead();
             }
-            if(Frozen == 0) {
-                if (up) this.location_y -= this.speed;
-                if (down) this.location_y += this.speed;
-                if (right) this.location_x += this.speed;
-                if (left) this.location_x -= this.speed;
-                int x1 = (int) ((location_x + 10) / Resources.BLOCK_SIZE); // 4 điểm tạo nên 1 hình chữ nhật
-                int x2 = (int) ((location_x + 40) / Resources.BLOCK_SIZE); // hình chữ nhật đó là cơ thể vật lý của nhân vật
-                int y1 = (int) ((location_y + 40) / Resources.BLOCK_SIZE); // 4 điểm được chuyển từ tọa độ trên màn hình location thành tọa độ trên map
-                int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE); // kiểm tra va chạm bằng cách kiểm tra 4 điểm này có vào ô bị chặn ko
 
-                collisionTest(x1, x2, y1, y2);
-             }
-            else {
-                Frozen --;
-            }
+            if (up)     this.location_y -= this.speed;
+            if (down)   this.location_y += this.speed;
+            if (right)  this.location_x += this.speed;
+            if (left)   this.location_x -= this.speed;
+            int x1 = (int) ((location_x + 10)  / Resources.BLOCK_SIZE); // 4 điểm tạo nên 1 hình chữ nhật
+            int x2 = (int) ((location_x + 40) / Resources.BLOCK_SIZE); // hình chữ nhật đó là cơ thể vật lý của nhân vật
+            int y1 = (int) ((location_y + 40) / Resources.BLOCK_SIZE); // 4 điểm được chuyển từ tọa độ trên màn hình location thành tọa độ trên map
+            int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE); // kiểm tra va chạm bằng cách kiểm tra 4 điểm này có vào ô bị chặn ko
+
+            collisionTest(x1, x2, y1, y2);
+
             x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
             y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
             if (room.isExit(x_room,y_room) != -1 ) {
