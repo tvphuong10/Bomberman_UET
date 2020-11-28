@@ -37,8 +37,8 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                    {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "2"},
+                    {"4", " ", " ", " ", " ", "#1", " ", "#1", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -56,10 +56,8 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", "W", " ", "W", "G", "W", "G", "W", " ", "W", "/", "2"},
+                        {"4", "/", "W", " ", "W", "G", "#1", "G", "W", " ", "W", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", "W", "G", "W", "G", "W", "G", "W", "P", "W", "/", "2"},
-                        {"4", " ", " ", " ", " ", "P", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", "B", "W", " ", "W", " ", "W", " ", "W", " ", "W", "B", "#"},
@@ -69,60 +67,34 @@ public class Room extends Object {
             } else if (r == 1) {
                 s = new String[][]{
                         {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
-                        {"#", " ", " ", "G", "#", " ", "/", " ", "#", " ", " ", " ", "#"},
-                        {"#", " ", " ", " ", "P", " ", "W", " ", "#", " ", " ", " ", "#"},
+                        {"#", "B", " ", "G", "#", " ", "/", " ", "#", "B", " ", "B", "#"},
+                        {"#", " ", " ", " ", "#", " ", "W", " ", "#", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
-                        {"#", "#", "#", " ", "#", " ", "W", " ", "#", " ", "#", "#", "#"},
+                        {"#", "#", "#", " ", "#1", " ", "W", " ", "#1", " ", "#", "#", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"4", "/", "W", " ", "W", "B", "W", "B", "W", " ", "W", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"#", "#", "#", " ", "#", " ", "W", " ", "#", " ", "#", "#", "#"},
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", "P", " ", "#"},
-=======
-=======
->>>>>>> parent of 4639655... 1.3
-=======
->>>>>>> parent of 4639655... 1.3
+                        {"#", "#", "#", " ", "#1", " ", "W", " ", "#1", " ", "#", "#", "#"},
                         {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
->>>>>>> parent of 4639655... 1.3
                         {"#", "B", " ", " ", "#", " ", "W", " ", "#", " ", " ", "B", "#"},
                         {"#", " ", " ", "B", "#", " ", "/", " ", "#", "G", " ", " ", "#"},
                         {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
                 };
             } else if ( r == 2) {
                 s = new String[][]{
-<<<<<<< HEAD
-                        {"#", "#", "#", "1", "1", "1", "#", "#", "#"},
-                        {"#", " ", "G", " ", "/", " ", " ", " ", "#"},
-                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
-                        {"#", " ", " ", "W", " ", "G", " ", " ", "#"},
-                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
-                        {"4", " ", "P", " ", " ", "P", " ", " ", "2"},
-                        {"4", "/", "W", " ", "W", "B", "W", "/", "2"},
-                        {"4", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
-                        {"#", " ", " ", " ", " ", " ", " ", " ", "#"},
-                        {"#", " ", "W", " ", "W", " ", "W", " ", "#"},
-                        {"#", " ", " ", " ", "/", " ", " ", " ", "#"},
-                        {"#", "#", "#", "3", "3", "3", "#", "#", "#"}
-=======
                         {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
                         {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", " ", " ", " ", " ", "#1", " ", " ", " ", " ", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                         {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
->>>>>>> parent of 4639655... 1.3
                 };
             } else {
                 s = new String[][]{
@@ -132,7 +104,7 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", " ", " ", " ", " ", "#1", " ", " ", " ", " ", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -148,7 +120,7 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", "W", "W", "W", " ", " ", " ", " ", "#"},
-                    {"4", " ", " ", "G", " ", "W", "W", "W", " ", " ", "P", " ", "2"},
+                    {"4", " ", " ", " ", " ", "W", "W", "W", " ", " ", " ", " ", "2"},
                     {"4", " ", " ", " ", " ", " ", "W", " ", " ", " ", " ", " ", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -165,7 +137,7 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", "/", " ", " ", " ", " ", "+", " ", " ", " ", " ", " ", "2"},
+                    {"4", "/", " ", " ", " ", " ", "+", " ", " ", " ", " ", "/", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -212,16 +184,12 @@ public class Room extends Object {
                     char c = map[j][i].charAt(0);
                     if ( c == '/') {                                            // '/' thung se khong sinh ra o vi tri nay
                         map[j][i] = " ";
-                    } else if (c == 'B') {                                      // 'B' sinh dơi
+                    } else if (c == 'B') {                                      // 'B' sinh doi
                         map[j][i] = " ";
                         enemies.add(new Enemy(i, j, this, level));
-                    }
-                    else if (c == 'G') {                                      // 'G' sinh ma
+                    } else if (c == 'G') {                                      // 'G' sinh ma
                         map[j][i] = " ";
                         enemies.add(new Ghost(i, j, this, level));
-                    } else if(c == 'P') {
-                        map[j][i] = " ";
-                        enemies.add(new Phoenix(i, j , this, level));
                     } else if ((c == '1' && up) || (c == '2' && right) || (c == '3' && down) || (c == '4' && left)) {
                         //map[j][i] = " ";
                     } else if (c == '1' || c == '2' || c == '3' || c == '4') {  // neu khong co phong ben canh thi xoa cua
@@ -242,19 +210,16 @@ public class Room extends Object {
      * @param y
      * @return true neu va cham
      */
-    public int isMeetEnemy(int x, int y) {
+    public boolean isMeetEnemy(int x, int y) {
         for (Enemy e : enemies) {
-
-                int x_ = (int) ((e.location_x + 24) / Resources.BLOCK_SIZE);
-                int y_ = (int) ((e.location_y + 48) / Resources.BLOCK_SIZE);
-                if (x == x_ && y == y_) {
-                    if (!(e instanceof Phoenix)) {
-                    return 1;
-                    } else return 2;
-                }
+            int x_ = (int) ((e.location_x + 24) / Resources.BLOCK_SIZE);
+            int y_ = (int) ((e.location_y + 48) / Resources.BLOCK_SIZE);
+            if (x == x_ && y == y_) {
+                return true;
             }
-            return 0;
         }
+        return false;
+    }
 
     /**
      * roi tien, neu truoc do o do da co tien roi thi tang gia tri dong tien do len 1.
@@ -370,7 +335,9 @@ public class Room extends Object {
                 switch(map[j][i].charAt(0)) {
                     case 'W' -> g.drawImage(Resources.Images.HARD_WALL.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case 'X' -> g.drawImage(Resources.Images.SOFT_WALL.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
-                    case '#' -> g.drawImage(Resources.Images.WALL2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                    case '#' -> { if (map[j][i].length() == 1)
+                        g.drawImage(Resources.Images.WALL2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                    }
                     case '+' -> g.drawImage(Resources.Images.GATE.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                 }
 
@@ -385,21 +352,27 @@ public class Room extends Object {
                             case '3' -> g.drawImage(Resources.Images.BOMBUP.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                         }
                     }
-                    case 'F' -> g.drawImage(Resources.Animation.Fire.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE - 7, j * Resources.BLOCK_SIZE - 15, null);
+                    case '#' -> {
+                        if (map[j][i].length() > 1)
+                            g.drawImage(Resources.Animation.TORCH.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 55, null);
                     }
+                    case 'F' -> g.drawImage(Resources.Animation.Fire.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE - 7, j * Resources.BLOCK_SIZE - 15, null);
                 }
+            }
             if (player.getY() == j) {
                 player.draw(g);
             }
             for (Enemy e : enemies) {
                 if (e.getY() == j)
-                e.draw(g);
+                    e.draw(g);
             }
         }
         for (int j = 0; j < map_height; j++) {
             for (int i = 0; i < map_weigh; i++) {
-                if (map[j][i].charAt(0) == 'F' || map[j][i].charAt(0) == 'S')
+                if (map[j][i].charAt(0) == 'F' || map[j][i].charAt(0) == 'S' )
                     g.drawImage(Resources.Images.LIGHT.getImage(), i * Resources.BLOCK_SIZE - 25, j * Resources.BLOCK_SIZE - 35, null);
+                if (map[j][i].charAt(0) == '#' && map[j][i].length() > 1)
+                    g.drawImage(Resources.Images.LIGHT.getImage(), i * Resources.BLOCK_SIZE - 25, j * Resources.BLOCK_SIZE - 65, null);
             }
         }
     }
@@ -422,6 +395,9 @@ public class Room extends Object {
                 if(map_status[j][i] == -1) {
                     if (map[j][i].charAt(0) == 'F') {
                         map[j][i] = " ";
+                    }
+                    if (map[j][i].charAt(0) == '#' && map[j][i].length() > 1) {
+                        map_status[j][i] = 3;
                     }
                     if (map[j][i].charAt(0) == 'B') {
                         explosion(j, i);
@@ -499,7 +475,7 @@ public class Room extends Object {
             explosion(j, i);
         }
 
-        if(map[j][i].charAt(0) == 'W' || map[j][i].charAt(0) == '#' || map[j][i].charAt(0) == 'S' || map[j][i].charAt(0) == '+' || map[j][i].charAt(0) == 'P') // neu gap tuong thi tra ve true
+        if(map[j][i].charAt(0) == 'W' || map[j][i].charAt(0) == '#' || map[j][i].charAt(0) == 'S' || map[j][i].charAt(0) == '+') // neu gap tuong thi tra ve true
             return true;
         else return false;
     }
