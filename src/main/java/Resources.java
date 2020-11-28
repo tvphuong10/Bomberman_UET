@@ -47,6 +47,7 @@ public class Resources {
      */
 
     public enum Animation {
+        TORCH,
         BOX,
         Fire,
         BAT,
@@ -105,6 +106,7 @@ public class Resources {
             res = "/Animations/";
             for (int i = 1; i <= 4; i++) {
                 Animation.BOX.animation[i - 1] = ImageIO.read(Resources.class.getResource( res +"box" + i + ".png"));
+                Animation.TORCH.animation[i - 1] = ImageIO.read(Resources.class.getResource( res +"Torch" + i + ".png"));
                 Animation.Fire.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Fire" + i + ".png"));
                 Animation.TEEMO.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "teemoAnimation" + i + ".png"));
                 Animation.TEEMODEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "TeemoDead" + i + ".png"));

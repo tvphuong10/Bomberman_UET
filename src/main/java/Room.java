@@ -37,8 +37,8 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                    {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "2"},
+                    {"4", " ", " ", " ", " ", "#1", " ", "#1", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -56,7 +56,7 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", "W", " ", "W", "G", "W", "G", "W", " ", "W", "/", "2"},
+                        {"4", "/", "W", " ", "W", "G", "#1", "G", "W", " ", "W", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -70,11 +70,11 @@ public class Room extends Object {
                         {"#", "B", " ", "G", "#", " ", "/", " ", "#", "B", " ", "B", "#"},
                         {"#", " ", " ", " ", "#", " ", "W", " ", "#", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
-                        {"#", "#", "#", " ", "#", " ", "W", " ", "#", " ", "#", "#", "#"},
+                        {"#", "#", "#", " ", "#1", " ", "W", " ", "#1", " ", "#", "#", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"4", "/", "W", " ", "W", "B", "W", "B", "W", " ", "W", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"#", "#", "#", " ", "#", " ", "W", " ", "#", " ", "#", "#", "#"},
+                        {"#", "#", "#", " ", "#1", " ", "W", " ", "#1", " ", "#", "#", "#"},
                         {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
                         {"#", "B", " ", " ", "#", " ", "W", " ", "#", " ", " ", "B", "#"},
                         {"#", " ", " ", "B", "#", " ", "/", " ", "#", "G", " ", " ", "#"},
@@ -88,7 +88,7 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", " ", " ", " ", " ", "#1", " ", " ", " ", " ", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -104,7 +104,7 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", " ", " ", " ", " ", "#1", " ", " ", " ", " ", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -137,7 +137,7 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                    {"4", "/", " ", " ", " ", " ", "+", " ", " ", " ", " ", " ", "2"},
+                    {"4", "/", " ", " ", " ", " ", "+", " ", " ", " ", " ", "/", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -335,7 +335,9 @@ public class Room extends Object {
                 switch(map[j][i].charAt(0)) {
                     case 'W' -> g.drawImage(Resources.Images.HARD_WALL.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case 'X' -> g.drawImage(Resources.Images.SOFT_WALL.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
-                    case '#' -> g.drawImage(Resources.Images.WALL2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                    case '#' -> { if (map[j][i].length() == 1)
+                        g.drawImage(Resources.Images.WALL2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                    }
                     case '+' -> g.drawImage(Resources.Images.GATE.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                 }
 
@@ -350,6 +352,10 @@ public class Room extends Object {
                             case '3' -> g.drawImage(Resources.Images.BOMBUP.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                         }
                     }
+                    case '#' -> {
+                        if (map[j][i].length() > 1)
+                            g.drawImage(Resources.Animation.TORCH.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 55, null);
+                    }
                     case 'F' -> g.drawImage(Resources.Animation.Fire.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE - 7, j * Resources.BLOCK_SIZE - 15, null);
                     }
                 }
@@ -363,8 +369,10 @@ public class Room extends Object {
         }
         for (int j = 0; j < map_height; j++) {
             for (int i = 0; i < map_weigh; i++) {
-                if (map[j][i].charAt(0) == 'F' || map[j][i].charAt(0) == 'S')
+                if (map[j][i].charAt(0) == 'F' || map[j][i].charAt(0) == 'S' )
                     g.drawImage(Resources.Images.LIGHT.getImage(), i * Resources.BLOCK_SIZE - 25, j * Resources.BLOCK_SIZE - 35, null);
+                if (map[j][i].charAt(0) == '#' && map[j][i].length() > 1)
+                    g.drawImage(Resources.Images.LIGHT.getImage(), i * Resources.BLOCK_SIZE - 25, j * Resources.BLOCK_SIZE - 65, null);
             }
         }
     }
@@ -387,6 +395,9 @@ public class Room extends Object {
                 if(map_status[j][i] == -1) {
                     if (map[j][i].charAt(0) == 'F') {
                         map[j][i] = " ";
+                    }
+                    if (map[j][i].charAt(0) == '#' && map[j][i].length() > 1) {
+                        map_status[j][i] = 3;
                     }
                     if (map[j][i].charAt(0) == 'B') {
                         explosion(j, i);

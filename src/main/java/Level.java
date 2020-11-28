@@ -90,6 +90,7 @@ public class Level extends Object {
                 }
             }
         }
+        hub = new Hub(77, 60, player);
     }
 
     /**
@@ -182,6 +183,7 @@ public class Level extends Object {
                 Resources.Animation.TEEMODEAD.getAnimation());
         player.setRoom(4,2,rooms[4][2]);
         rooms[4][2].show = true;
+        hub = new Hub(77, 60, player);
     }
 
     protected void draw(Graphics g) {
