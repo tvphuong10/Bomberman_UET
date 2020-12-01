@@ -6,6 +6,7 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
     private int i;
+    private boolean start;
     private boolean running;
     private Thread thread;
     private boolean game_over;
@@ -19,6 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         i = 0;
         running = true;
+        start = true;
         level = new Level();
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -27,13 +29,24 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(new GameClick(level));
     }
 
+    public void setStart(boolean b) {
+        this.start = b;
+        if (b == false) {
+            i = 0;
+        }
+    }
+    public boolean isStart() {return start;}
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(Resources.Images.BACKGROUND.getImage(), 0, 0, null);
-        level.draw(g);
+        if (start) {
+            g.drawImage(Resources.Animation.MENU.get((i / 20) % 4), 0, 0 , null);
+        } else {
+            level.draw(g);
+            trans(g);
+        }
     }
-
 
     /**
      * vòng lặp game được chạy ở luồng đã được khai báo.
@@ -51,7 +64,6 @@ public class GamePanel extends JPanel implements Runnable {
             this.repaint();
             
         }
-
         System.exit(0);
     }
 
@@ -93,14 +105,19 @@ class GameController implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_A) player.leftPressed();
-        if (e.getKeyCode() == KeyEvent.VK_S) player.downPressed();
-        if (e.getKeyCode() == KeyEvent.VK_D) player.rightPressed();
-        if (e.getKeyCode() == KeyEvent.VK_W) player.upPressed();
+        if (game_panel.isStart()) {
+            game_panel.setStart(false);
+            level.setPause(false);
+        } else {
+            if (e.getKeyCode() == KeyEvent.VK_A) player.leftPressed();
+            if (e.getKeyCode() == KeyEvent.VK_S) player.downPressed();
+            if (e.getKeyCode() == KeyEvent.VK_D) player.rightPressed();
+            if (e.getKeyCode() == KeyEvent.VK_W) player.upPressed();
 
-        if (e.getKeyCode() == KeyEvent.VK_E) level.shoping();
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) player.putBomb();
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) level.pause();
+            if (e.getKeyCode() == KeyEvent.VK_E) level.shoping();
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) player.putBomb();
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) level.pause();
+        }
     }
 
     /**
@@ -142,7 +159,7 @@ class GameClick implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (level.isShop())
+        if (level.isShopping())
             level.getHub().click(e.getX(), e.getY());
     }
 }

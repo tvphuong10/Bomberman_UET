@@ -86,11 +86,11 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                        {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", " ", " ", " ", "B", " ", " ", " ", "B", " ", " ", " ", "#"},
+                        {"4", " ", " ", " ", "B", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", "/", " ", " ", "B", " ", "#1", " ", "B", " ", " ", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", " ", " ", " ", " ", "#1", " ", " ", " ", " ", "/", "2"},
-                        {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                        {"#", " ", " ", " ", " ", " ", " ", " ", "B", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
@@ -135,12 +135,12 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                    {"#", " ", " ", " ", " ", "G", " ", "G", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"4", "/", " ", " ", " ", " ", "+", " ", " ", " ", " ", "/", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                    {"#", " ", " ", " ", " ", "G", " ", "G", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                     {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
@@ -325,9 +325,14 @@ public class Room extends Object {
 
 
     public void draw(Graphics g, Player player) {
-        for (int j = 0; j < map_height; j++) {
-            for (int i = 0; i < map_weigh; i++) {
-                g.drawImage(Resources.Images.FLOOR.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
+        if (type == Room.START) {
+            g.drawImage(Resources.Images.STARTFLOOR.getImage(), 0, 0, null);
+        }
+        else {
+            for (int j = 0; j < map_height; j++) {
+                for (int i = 0; i < map_weigh; i++) {
+                    g.drawImage(Resources.Images.FLOOR.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
+                }
             }
         }
         for (int j = 0; j < map_height; j++) {
@@ -343,7 +348,7 @@ public class Room extends Object {
 
                 switch(map[j][i].charAt(0)) {
                     case 'S' -> g.drawImage(Resources.Animation.BOX.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
-                    case 'B' -> g.drawImage(Resources.Images.BOMB.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                    case 'B' -> g.drawImage(Resources.Animation.CRYSTAL.get(map_status[j][i] % 4), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case 'I' -> {
                         switch (map[j][i].charAt(1)) {
                             case 'G' -> g.drawImage(Resources.Images.COIN.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);

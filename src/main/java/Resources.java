@@ -1,4 +1,8 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -9,30 +13,32 @@ import java.io.IOException;
 public class Resources {
 
     static final int BLOCK_SIZE = 50;
-    static final int SCREEN_H = 685;
-    static final int SCREEN_W = 900;
+    static final int SCREEN_H = 695;
+    static final int SCREEN_W = 662;
 
     public enum Images {
         BACKGROUND,
-        LIGHT,
-        SHOP,
+        BOMBUP,
         BUTTON,
         BUTTONS,
-        GATE,
-        MINIMAP,
-        MINIMAP2,
-        BOMB,
-        BOMBUP,
-        FIREUP,
         COIN,
+        FIREUP,
         FLOOR,
         FLOOR2,
+        GATE,
         HARD_WALL,
         ICON,
+        LIFE,
+        LIGHT,
+        MINIMAP,
+        MINIMAP2,
+        PAUSE,
+        SHOP,
         SOFT_WALL,
         SPEEDUP,
+        STARTFLOOR,
+        TRANSITION,
         TRANSITIONS,
-        PAUSE,
         WALL2;
 
         private BufferedImage image = null;
@@ -47,18 +53,20 @@ public class Resources {
      */
 
     public enum Animation {
-        TORCH,
-        BOX,
-        Fire,
         BAT,
         BATDEAD,
+        BOX,
+        CRYSTAL,
+        Fire,
+        GHOST,
+        GHOSTDEAD,
         LEESIN,
         LEESINDEAD,
+        MENU,
         RUN,
         TEEMO,
         TEEMODEAD,
-        GHOST,
-        GHOSTDEAD;
+        TORCH;
 
         private BufferedImage[] animation = new BufferedImage[4];
 
@@ -71,6 +79,17 @@ public class Resources {
         }
     }
 
+    public enum Sound {
+        MENU,
+        EXPLOSION,
+        PLAYING;
+
+        private Clip clip;
+        public void start() {
+            clip.start();
+        }
+    }
+
     /**
      * hàm đọc file.
      */
@@ -79,10 +98,13 @@ public class Resources {
         try {
             String res = "/Img/";
             System.out.println(Resources.class.getResource(""));
+            Images.STARTFLOOR.image = ImageIO.read(Resources.class.getResource(res + "Start.png"));
+            Images.TRANSITION.image = ImageIO.read(Resources.class.getResource(res + "Transitions.png"));
             Images.GATE.image = ImageIO.read(Resources.class.getResource(res + "Gate.png"));
+            Images.LIFE.image = ImageIO.read(Resources.class.getResource(res + "Life.png"));
             Images.LIGHT.image = ImageIO.read(Resources.class.getResource(res + "LIGHT.png"));
             Images.COIN.image = ImageIO.read(Resources.class.getResource(res + "Coin.png"));
-            Images.BACKGROUND.image = ImageIO.read(Resources.class.getResource(res + "Bg.png"));
+            Images.BACKGROUND.image = ImageIO.read(Resources.class.getResource(res + "MapBg.png"));
             Images.FLOOR.image = ImageIO.read(Resources.class.getResource(res + "Floor.png"));
             Images.FLOOR2.image = ImageIO.read(Resources.class.getResource(res + "Floor2.png"));
             Images.TRANSITIONS.image = ImageIO.read(Resources.class.getResource(res + "Transitions.png"));
@@ -93,7 +115,6 @@ public class Resources {
             Images.SOFT_WALL.image = ImageIO.read(Resources.class.getResource(res + "Box.png"));
             Images.HARD_WALL.image = ImageIO.read(Resources.class.getResource(res + "Wall1.png"));
             Images.WALL2.image = ImageIO.read(Resources.class.getResource(res + "Wall2.png"));
-            Images.BOMB.image = ImageIO.read(Resources.class.getResource(res + "Musroom.png"));
             Images.MINIMAP2.image = ImageIO.read(Resources.class.getResource(res + "Map2.png"));
             Images.MINIMAP.image = ImageIO.read(Resources.class.getResource(res + "Map.png"));
 
@@ -105,10 +126,12 @@ public class Resources {
 
             res = "/Animations/";
             for (int i = 1; i <= 4; i++) {
+                Animation.MENU.animation[i - 1] = ImageIO.read(Resources.class.getResource( res +"Menu" + i + ".png"));
+                Animation.CRYSTAL.animation[i - 1] = ImageIO.read(Resources.class.getResource( res +"Crystal" + i + ".png"));
                 Animation.BOX.animation[i - 1] = ImageIO.read(Resources.class.getResource( res +"box" + i + ".png"));
                 Animation.TORCH.animation[i - 1] = ImageIO.read(Resources.class.getResource( res +"Torch" + i + ".png"));
                 Animation.Fire.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Fire" + i + ".png"));
-                Animation.TEEMO.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "teemoAnimation" + i + ".png"));
+                Animation.TEEMO.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Alice" + i + ".png"));
                 Animation.TEEMODEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "TeemoDead" + i + ".png"));
                 Animation.LEESIN.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "LeesinAnimation" + i + ".png"));
                 Animation.LEESINDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "LeesinDead" + i + ".png"));
@@ -122,8 +145,18 @@ public class Resources {
                 Animation.RUN.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Run" + i + ".png"));
             }
 
+            Sound.EXPLOSION.clip = AudioSystem.getClip();
+            Sound.MENU.clip = AudioSystem.getClip();
+            res = "/Sound/";
+            Sound.EXPLOSION.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Explosion")));
+            Sound.MENU.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"MenuTheme")));
+
         } catch (IOException e) {
             System.err.println(e + ": Cannot read image file");
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
     }

@@ -8,21 +8,23 @@ public class Level extends Object {
     private Player player;
     private int level;
     private boolean pause;
-    private boolean shop;
-    private Hub hub;
+    private boolean shopping;
+    private Shop shop;
 
     public Player getPlayer() {return player;}
 
-    public Hub getHub() {
-        return hub;
+    public Shop getHub() {
+        return shop;
     }
+    public void setPause(boolean b) {this.pause = b;}
     public boolean isPause() {return pause;}
-    public boolean isShop() {return shop;}
+    public boolean isShopping() {return shopping;}
 
     /**
      * khoi tao level, chon rooms[4][2] la phong khoi dau.
      */
     public Level() {
+        pause = true;
         i = 0;
         level = 1;
         rooms = new Room[LEVEL_SIZE][LEVEL_SIZE];
@@ -34,7 +36,7 @@ public class Level extends Object {
                 Resources.Animation.RUN.getAnimation(),
                 Resources.Animation.TEEMODEAD.getAnimation());
         player.setRoom(4,2,rooms[4][2]);
-        hub = new Hub(77, 60, player);
+        shop = new Shop(77, 60, player);
     }
 
     public void pause() {
@@ -43,8 +45,8 @@ public class Level extends Object {
     }
 
     public void shoping() {
-        if (shop) shop = false;
-        else shop = true;
+        if (shopping) shopping = false;
+        else shopping = true;
     }
 
     /**
@@ -90,7 +92,7 @@ public class Level extends Object {
                 }
             }
         }
-        hub = new Hub(77, 60, player);
+        shop = new Shop(77, 60, player);
     }
 
     /**
@@ -158,6 +160,7 @@ public class Level extends Object {
                 player.setRoom(x, y, rooms[x][y]);
                 rooms[x][y].show = true;
                 player.enterRoom((u + 1) % 4 + 1);
+                i = 0;
             } else if (u < 0) replay();
             if (i % 4 == 0 || u > 0) {
                 for (int i = 0; i < LEVEL_SIZE; i++) {
@@ -167,7 +170,6 @@ public class Level extends Object {
                         }
                     }
                 }
-                i = 0;
             }
         }
         return 0;
@@ -183,31 +185,41 @@ public class Level extends Object {
                 Resources.Animation.TEEMODEAD.getAnimation());
         player.setRoom(4,2,rooms[4][2]);
         rooms[4][2].show = true;
-        hub = new Hub(77, 60, player);
+        shop = new Shop(77, 60, player);
     }
 
     protected void draw(Graphics g) {
+        g.setFont(new Font("Arial",Font.BOLD, 20));
+        g.setColor(Color.white);
         player.room.draw(g, player);
+        int x = 525;
+        if (player.x_room > 7 && player.y_room < 7) x = 5;
+        g.drawImage(Resources.Images.BACKGROUND.getImage(), x , 5, null);
+        g.drawImage(Resources.Images.COIN.getImage(), 535 - x , 5, null);
+        g.drawImage(Resources.Images.LIFE.getImage(), 535 - x , 35, null);
+        g.drawString(player.gold + "" , 570 - x, 33);
+        g.drawString(player.life + "" , 570 - x, 63);
+        g.drawString("level: " + level, 450, 33);
 
         for (int i = 0; i < LEVEL_SIZE; i++) {
             for (int j = 0; j < LEVEL_SIZE; j++) {
                 if (rooms[j][i] != null && rooms[j][i].show)
                 if (j == player.getLevel_x() && i == player.level_y) {
-                    g.drawImage(Resources.Images.MINIMAP2.getImage(), 700 + i * 30, 30 + j * 30, null);
+                    g.drawImage(Resources.Images.MINIMAP2.getImage(), x + i * 23 + 2, j * 23, null);
                 } else {
-                    g.drawImage(Resources.Images.MINIMAP.getImage(), 700 + i * 30, 30 + j * 30, null);
+                    g.drawImage(Resources.Images.MINIMAP.getImage(), x + i * 23 + 2, j * 23, null);
                 }
             }
         }
-        drawHub(g);
 
         if (player.room.getType() != Room.SHOP) {
-            shop = false;
-        } else if (shop) {
-            hub.draw(g);
+            shopping = false;
+        } else if (shopping) {
+            shop.draw(g);
         }
         if (pause) {
-                g.drawImage(Resources.Images.PAUSE.getImage(), 0, 0, null);
+            g.drawImage(Resources.Images.PAUSE.getImage(), 0, 0, null);
+            drawHub(g, 420, 250);
         }
     }
 
@@ -216,16 +228,15 @@ public class Level extends Object {
      * @param g do hoa
      */
 
-    private void drawHub(Graphics g) {
-        g.setColor(Color.GRAY);
-        g.setFont(new Font("Arial",Font.BOLD, 24));
-        g.drawString("Level: " + level , 680, 260);
+    private void drawHub(Graphics g, int x, int y) {
+        g.setColor(Color.white);
+        g.drawString("Level: " + level , x, y);
         g.setColor(Color.ORANGE);
-        g.drawString("Gold: " + player.gold , 680, 300);
-        g.setColor(Color.GRAY);
-        g.drawString("Life: " + player.life , 680, 340);
-        g.drawString("Bomb: " + player.bombNumber , 680, 380);
-        g.drawString("Pow: " + player.power , 680, 420);
-        g.drawString("Speed: " + player.speed , 680, 460);
+        g.drawString("Gold: " + player.gold , x, y + 40);
+        g.setColor(Color.white);
+        g.drawString("Life: " + player.life , x, y + 80);
+        g.drawString("Bomb: " + player.bombNumber , x, y + 120);
+        g.drawString("Pow: " + player.power , x, y + 160);
+        g.drawString("Speed: " + player.speed , x, y + 200);
     }
 }

@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Character {
-    boolean in_room;
     int immortal_timer;
     int level_x;
     int level_y;
@@ -91,20 +90,6 @@ public class Player extends Character {
 
     public void enterRoom(int gate) {
         boolean first_time = false;
-        for (int i = 0; i < room.getMapHeight(); i++) {
-            for (int j = 0; j < room.getMapWeigh(); j++) {
-                if (room.get(j,i).charAt(0) == gate + '0') {
-                    if (first_time) {
-                        x_room = j;
-                        y_room = i;
-                        location_x = x_room * Resources.BLOCK_SIZE;
-                        location_y = y_room * Resources.BLOCK_SIZE;
-                    } else {
-                        first_time = true;
-                    }
-                }
-            }
-        }
     }
 
     private void dead() {
@@ -132,16 +117,25 @@ public class Player extends Character {
             int y1 = (int) ((location_y + 40) / Resources.BLOCK_SIZE); // 4 điểm được chuyển từ tọa độ trên màn hình location thành tọa độ trên map
             int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE); // kiểm tra va chạm bằng cách kiểm tra 4 điểm này có vào ô bị chặn ko
 
+            if (x1 < 0) {
+                location_x = room.getMapWeigh() * Resources.BLOCK_SIZE - 40;
+                return 4;
+            }
+            if (y2 >= room.getMapHeight()) {
+                location_y = -10;
+                return 3;
+            }
+            if (x2 >= room.getMapWeigh()) {
+                location_x = 0;
+                return 2;
+            }
+            if (y1 < 0) {
+                location_y = room.getMapHeight() * Resources.BLOCK_SIZE - 65;
+                return 1;
+            }
             collisionTest(x1, x2, y1, y2);
-
             x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
             y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-            if (room.isExit(x_room,y_room) != -1 ) {
-                if (in_room) {
-                    in_room = false;
-                    return room.isExit(x_room,y_room);
-                }
-            } else in_room  = true;
             if (room.get(x_room, y_room).charAt(0) == '+') return 5;
         }
         return 0;
@@ -212,11 +206,11 @@ public class Player extends Character {
 
     private void drawLeg(Graphics g) {
         if(up || down || right || left) {
-            if (flip)   g.drawImage(this.run_animation[frame / 4], location_x + width, location_y + 2, -width, height, null);
-            else        g.drawImage(this.run_animation[frame / 4], location_x , location_y + 2, width, height, null);
+            if (flip)   g.drawImage(this.run_animation[frame / 4], location_x + width, location_y + 15, -width, height, null);
+            else        g.drawImage(this.run_animation[frame / 4], location_x , location_y + 15, width, height, null);
         } else {
-            if (flip)   g.drawImage(this.run_animation[1], location_x + width, location_y + 2, -width, height, null);
-            else        g.drawImage(this.run_animation[1], location_x , location_y + 2, width, height, null);
+            if (flip)   g.drawImage(this.run_animation[1], location_x + width, location_y + 15, -width, height, null);
+            else        g.drawImage(this.run_animation[1], location_x , location_y + 15, width, height, null);
         }
     }
 }
