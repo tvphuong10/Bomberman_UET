@@ -1,8 +1,5 @@
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -82,13 +79,27 @@ public class Resources {
     public enum Sound {
         MENU,
         EXPLOSION,
+        COIN,
+        BAT,
+        GHOST,
+        HURT,
+        CRYSTAL,
         PLAYING;
 
         private Clip clip;
         public void start() {
+            clip.start();
+        }
+        public void reStart() {
             clip.stop();
             clip.setFramePosition(0);
             clip.start();
+        }
+        public void setLoop() {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        public void stop() {
+            clip.stop();
         }
     }
 
@@ -149,9 +160,19 @@ public class Resources {
 
             Sound.EXPLOSION.clip = AudioSystem.getClip();
             Sound.MENU.clip = AudioSystem.getClip();
+            Sound.COIN.clip = AudioSystem.getClip();
+            Sound.BAT.clip = AudioSystem.getClip();
+            Sound.GHOST.clip = AudioSystem.getClip();
+            Sound.HURT.clip = AudioSystem.getClip();
+            Sound.CRYSTAL.clip = AudioSystem.getClip();
             res = "/Sound/";
             Sound.EXPLOSION.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Explosion.wav")));
             Sound.MENU.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"MenuTheme.wav")));
+            Sound.COIN.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Coin.wav")));
+            Sound.BAT.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Bat.wav")));
+            Sound.GHOST.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Ghost.wav")));
+            Sound.HURT.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Hurt.wav")));
+            Sound.CRYSTAL.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Crystal.wav")));
 
         } catch (IOException e) {
             System.err.println(e + ": Cannot read image file");

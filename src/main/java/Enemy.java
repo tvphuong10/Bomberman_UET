@@ -27,6 +27,10 @@ public class Enemy extends Character {
         this.speed = 10 * level;
     }
 
+    protected void hurt() {
+        Resources.Sound.BAT.reStart();
+    }
+
     /**
      * kiem tra nhan vat co di vao o lua ko.
      */
@@ -35,6 +39,7 @@ public class Enemy extends Character {
         int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
         if(room.get(x, y).charAt(0) == 'F') {
             is_dead = true;
+            hurt();
         }
     }
 

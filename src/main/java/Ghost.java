@@ -9,6 +9,11 @@ public class Ghost extends Enemy {
         this.dead_animation = Resources.Animation.GHOSTDEAD.getAnimation();
     }
 
+    @Override
+    protected void hurt() {
+        Resources.Sound.GHOST.reStart();
+    }
+
     /**
      * override lai ham condition tra ve true neu tim thay nhan vat.
      * @param x toa do x o dang xet.

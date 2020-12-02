@@ -56,6 +56,10 @@ public class Player extends Character {
         room.putBomb(last_bomb_x, last_bomb_y, bombNumber , power, id);
     }
 
+    protected void hurt() {
+        Resources.Sound.HURT.reStart();
+    }
+
     public void upPressed() {up = true;}
     public void downPressed() {down = true;}
     public void rightPressed() {
@@ -92,6 +96,7 @@ public class Player extends Character {
     }
 
     private void dead() {
+        hurt();
         immortal_timer = 46;
         frame = 0;
         life--;

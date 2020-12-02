@@ -246,6 +246,7 @@ public class Room extends Object {
 
     public int getCoin(int x, int y) {
         if (map[y][x].charAt(0) == 'I' && map[y][x].charAt(1) == 'G') {
+            Resources.Sound.COIN.reStart();
             return map[y][x].charAt(2);
         }
         else return 0;
@@ -314,6 +315,7 @@ public class Room extends Object {
         if (bomb_number > 0 && map[y][x].charAt(0) == ' ') {
             map[y][x] = "B" + ((char) pow) + id;
             map_status[y][x] = 13;
+            Resources.Sound.CRYSTAL.reStart();
         }
     }
 
@@ -436,7 +438,7 @@ public class Room extends Object {
 
     private void explosion(int j, int i) {
         int pow = map[j][i].charAt(1);
-        Resources.Sound.EXPLOSION.start();
+        Resources.Sound.EXPLOSION.reStart();
         System.out.println("pip");
         map[j][i] = "F";
         map_status[j][i] = 3;
