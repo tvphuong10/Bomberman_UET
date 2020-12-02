@@ -86,6 +86,8 @@ public class Resources {
 
         private Clip clip;
         public void start() {
+            clip.stop();
+            clip.setFramePosition(0);
             clip.start();
         }
     }
@@ -148,8 +150,8 @@ public class Resources {
             Sound.EXPLOSION.clip = AudioSystem.getClip();
             Sound.MENU.clip = AudioSystem.getClip();
             res = "/Sound/";
-            Sound.EXPLOSION.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Explosion")));
-            Sound.MENU.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"MenuTheme")));
+            Sound.EXPLOSION.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Explosion.wav")));
+            Sound.MENU.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"MenuTheme.wav")));
 
         } catch (IOException e) {
             System.err.println(e + ": Cannot read image file");

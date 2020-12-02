@@ -51,7 +51,6 @@ public class Player extends Character {
     }
 
     public void putBomb() {
-        System.out.println("pip");
         last_bomb_x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
         last_bomb_y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
         room.putBomb(last_bomb_x, last_bomb_y, bombNumber , power, id);

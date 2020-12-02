@@ -436,7 +436,8 @@ public class Room extends Object {
 
     private void explosion(int j, int i) {
         int pow = map[j][i].charAt(1);
-
+        Resources.Sound.EXPLOSION.start();
+        System.out.println("pip");
         map[j][i] = "F";
         map_status[j][i] = 3;
 
