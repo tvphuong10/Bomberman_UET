@@ -14,6 +14,8 @@ public class Resources {
     static final int SCREEN_W = 662;
 
     public enum Images {
+        SHOPKEEPER,
+        SHOPKEEPER2,
         BACKGROUND,
         BOMBUP,
         BUTTON,
@@ -36,6 +38,7 @@ public class Resources {
         STARTFLOOR,
         TRANSITION,
         TRANSITIONS,
+        ICE,
         WALL2;
 
         private BufferedImage image = null;
@@ -63,6 +66,8 @@ public class Resources {
         RUN,
         TEEMO,
         TEEMODEAD,
+        ICE,
+        SLIME,
         TORCH;
 
         private BufferedImage[] animation = new BufferedImage[4];
@@ -84,6 +89,7 @@ public class Resources {
         GHOST,
         HURT,
         CRYSTAL,
+        SLIME,
         PLAYING;
 
         private Clip clip;
@@ -112,6 +118,8 @@ public class Resources {
             String res = "/Img/";
             System.out.println(Resources.class.getResource(""));
             Images.STARTFLOOR.image = ImageIO.read(Resources.class.getResource(res + "Start.png"));
+            Images.SHOPKEEPER.image = ImageIO.read(Resources.class.getResource(res + "ShopKeeper.png"));
+            Images.SHOPKEEPER2.image = ImageIO.read(Resources.class.getResource(res + "ShopKeeper2.png"));
             Images.TRANSITION.image = ImageIO.read(Resources.class.getResource(res + "Transitions.png"));
             Images.GATE.image = ImageIO.read(Resources.class.getResource(res + "Gate.png"));
             Images.LIFE.image = ImageIO.read(Resources.class.getResource(res + "Life.png"));
@@ -130,6 +138,7 @@ public class Resources {
             Images.WALL2.image = ImageIO.read(Resources.class.getResource(res + "Wall2.png"));
             Images.MINIMAP2.image = ImageIO.read(Resources.class.getResource(res + "Map2.png"));
             Images.MINIMAP.image = ImageIO.read(Resources.class.getResource(res + "Map.png"));
+            Images.ICE.image = ImageIO.read(Resources.class.getResource(res + "Ice.png"));
 
             res = "/Hub/";
             Images.PAUSE.image = ImageIO.read(Resources.class.getResource(res + "Pause.png"));
@@ -152,6 +161,8 @@ public class Resources {
                 Animation.BATDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "BatDead" + i + ".png"));
                 Animation.GHOST.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "Ghost" + i + ".png"));
                 Animation.GHOSTDEAD.animation[i - 1] = ImageIO.read(Resources.class.getResource(res + "GhostDead" + i + ".png"));
+                Animation.ICE.animation[i-1] = ImageIO.read(Resources.class.getResource(res + "Iceboss" + i + ".png"));
+                Animation.SLIME.animation[i-1] = ImageIO.read(Resources.class.getResource(res + "Slime" + i + ".png"));
             }
 
             for (int i = 1; i <= 3; i++) {
@@ -165,6 +176,7 @@ public class Resources {
             Sound.GHOST.clip = AudioSystem.getClip();
             Sound.HURT.clip = AudioSystem.getClip();
             Sound.CRYSTAL.clip = AudioSystem.getClip();
+            Sound.SLIME.clip = AudioSystem.getClip();
             res = "/Sound/";
             Sound.EXPLOSION.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Explosion.wav")));
             Sound.MENU.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"MenuTheme.wav")));
@@ -173,6 +185,7 @@ public class Resources {
             Sound.GHOST.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Ghost.wav")));
             Sound.HURT.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Hurt.wav")));
             Sound.CRYSTAL.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Crystal.wav")));
+            Sound.SLIME.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Slime.wav")));
 
         } catch (IOException e) {
             System.err.println(e + ": Cannot read image file");

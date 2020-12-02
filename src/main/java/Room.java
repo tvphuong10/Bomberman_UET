@@ -60,23 +60,23 @@ public class Room extends Object {
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", "W", " ", "W", " ", "W", " ", "W", " ", "W", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                        {"#", "B", "W", " ", "W", " ", "W", " ", "W", " ", "W", "B", "#"},
+                        {"#", "S", "W", " ", "W", " ", "W", " ", "W", " ", "W", "B", "#"},
                         {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                         {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
                 };
             } else if (r == 1) {
                 s = new String[][]{
                         {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
-                        {"#", "B", " ", "G", "#", " ", "/", " ", "#", "B", " ", "B", "#"},
+                        {"#", "P", " ", "G", "#", " ", "/", " ", "#", "B", " ", "B", "#"},
                         {"#", " ", " ", " ", "#", " ", "W", " ", "#", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
                         {"#", "#", "#", " ", "#1", " ", "W", " ", "#1", " ", "#", "#", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", "W", " ", "W", "B", "W", "B", "W", " ", "W", "/", "2"},
+                        {"4", "/", "W", " ", "W", "S", "W", "B", "W", " ", "W", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", "#", "#", " ", "#1", " ", "W", " ", "#1", " ", "#", "#", "#"},
                         {"#", " ", " ", " ", "#", " ", " ", " ", "#", " ", " ", " ", "#"},
-                        {"#", "B", " ", " ", "#", " ", "W", " ", "#", " ", " ", "B", "#"},
+                        {"#", "B", " ", " ", "#", " ", "W", " ", "#", " ", " ", "P", "#"},
                         {"#", " ", " ", "B", "#", " ", "/", " ", "#", "G", " ", " ", "#"},
                         {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
                 };
@@ -86,10 +86,10 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                        {"#", " ", " ", " ", "B", " ", " ", " ", "B", " ", " ", " ", "#"},
+                        {"#", " ", " ", " ", "B", " ", " ", " ", "S", " ", " ", " ", "#"},
                         {"4", " ", " ", " ", "B", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"4", "/", " ", " ", "B", " ", "#1", " ", "B", " ", " ", "/", "2"},
-                        {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
+                        {"4", " ", " ", " ", "P", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", "B", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -104,7 +104,7 @@ public class Room extends Object {
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
-                        {"4", "/", " ", " ", " ", " ", "#1", " ", " ", " ", " ", "/", "2"},
+                        {"4", "/", " ", " ", "P", " ", "#1", " ", " ", " ", " ", "/", "2"},
                         {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                         {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -118,10 +118,10 @@ public class Room extends Object {
                     {"#", "#", "#", "#", "#", "1", "1", "1", "#", "#", "#", "#", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", " ", " ", " ", " ", "W", " ", "W", " ", " ", " ", " ", "#"},
-                    {"#", " ", " ", " ", " ", "W", "W", "W", " ", " ", " ", " ", "#"},
-                    {"4", " ", " ", " ", " ", "W", "W", "W", " ", " ", " ", " ", "2"},
-                    {"4", " ", " ", " ", " ", " ", "W", " ", " ", " ", " ", " ", "2"},
+                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+                    {"4", " ", " ", " ", " ", "#1", " ", "#1", " ", " ", " ", " ", "2"},
+                    {"4", " ", " ", " ", " ", " ", "K", " ", " ", " ", " ", " ", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
@@ -135,12 +135,12 @@ public class Room extends Object {
                     {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", " ", " ", " ", " ", "G", " ", "G", " ", " ", " ", " ", "#"},
+                    {"#", " ", " ", " ", " ", "G", " ", "P", " ", " ", " ", " ", "#"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"4", "/", " ", " ", " ", " ", "+", " ", " ", " ", " ", "/", "2"},
                     {"4", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "2"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-                    {"#", " ", " ", " ", " ", "G", " ", "G", " ", " ", " ", " ", "#"},
+                    {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
                     {"#", " ", " ", " ", " ", " ", "/", " ", " ", " ", " ", " ", "#"},
                     {"#", "#", "#", "#", "#", "3", "3", "3", "#", "#", "#", "#", "#"}
@@ -190,6 +190,12 @@ public class Room extends Object {
                     } else if (c == 'G') {                                      // 'G' sinh ma
                         map[j][i] = " ";
                         enemies.add(new Ghost(i, j, this, level));
+                    } else if (c == 'S') {                                      // 'S' sinh Silme
+                        map[j][i] = " ";
+                        enemies.add(new Slime(i, j, this, level));
+                    } else if(c == 'P') {
+                        map[j][i] = " ";
+                        enemies.add(new SnowEnemy(i, j , this, level));
                     } else if ((c == '1' && up) || (c == '2' && right) || (c == '3' && down) || (c == '4' && left)) {
                         //map[j][i] = " ";
                     } else if (c == '1' || c == '2' || c == '3' || c == '4') {  // neu khong co phong ben canh thi xoa cua
@@ -210,15 +216,17 @@ public class Room extends Object {
      * @param y
      * @return true neu va cham
      */
-    public boolean isMeetEnemy(int x, int y) {
+    public int isMeetEnemy(int x, int y) {
         for (Enemy e : enemies) {
             int x_ = (int) ((e.location_x + 24) / Resources.BLOCK_SIZE);
             int y_ = (int) ((e.location_y + 48) / Resources.BLOCK_SIZE);
             if (x == x_ && y == y_) {
-                return true;
+                if (!(e instanceof SnowEnemy)) {
+                    return 1;
+                } else return 2;
             }
         }
-        return false;
+        return 0;
     }
 
     /**
@@ -319,6 +327,10 @@ public class Room extends Object {
         }
     }
 
+    public void putPoison(int y, int x) {
+        map[y][x] = "I4";
+    }
+
     /**
      * ve room.
      * @param g g
@@ -351,6 +363,15 @@ public class Room extends Object {
                 switch(map[j][i].charAt(0)) {
                     case 'S' -> g.drawImage(Resources.Animation.BOX.get(3 - map_status[j][i]), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     case 'B' -> g.drawImage(Resources.Animation.CRYSTAL.get(map_status[j][i] % 4), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                    case 'K' -> {
+                        int x = player.getXRoom();
+                        int y = player.getYRoom();
+                        if (x > 3 && x < 9 && y > 3 && y < 9) {
+                            g.drawImage(Resources.Images.SHOPKEEPER2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                        } else {
+                            g.drawImage(Resources.Images.SHOPKEEPER.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
+                        }
+                    }
                     case 'I' -> {
                         switch (map[j][i].charAt(1)) {
                             case 'G' -> g.drawImage(Resources.Images.COIN.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
@@ -423,8 +444,29 @@ public class Room extends Object {
         for (int i = 0; i < enemies.size(); i++) {
             int u = enemies.get(i).update(player);
             if (u < 0) {
-                enemies.remove(i);
-                i--;
+                if(enemies.get(i) instanceof Slime) {
+                    if(enemies.get(i).speed < (20 * level )) {
+                        Slime a = new Slime(enemies.get(i).x_room,enemies.get(i).y_room,this,level);
+                        a.speed = enemies.get(i).speed * 2;
+                        a.height = enemies.get(i).height - 10;
+                        a.width = enemies.get(i).width - 10;
+
+                        Slime b = new Slime(enemies.get(i).x_room,enemies.get(i).y_room,this,level);
+                        b.speed = enemies.get(i).speed * 2;
+                        b.height = enemies.get(i).height - 10;
+                        b.width = enemies.get(i).width  - 10;
+                        enemies.add(a);
+                        enemies.add(b);
+                        enemies.remove(i);
+                        i--;
+                    } else {
+                        enemies.remove(i);
+                        i--;
+                    }
+                } else {
+                    enemies.remove(i);
+                    i--;
+                }
             }
         }
         return 0;

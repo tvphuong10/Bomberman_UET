@@ -8,6 +8,7 @@ public class Player extends Character {
     int last_bomb_x;
     int last_bomb_y;
     int frame;
+    int frozen;
 
     String name;
     char id;
@@ -109,35 +110,40 @@ public class Player extends Character {
         } else {
             if (immortal_timer == 0) {
                 pickItem();
-                if (room.isMeetEnemy(x_room, y_room)) dead();
+                int h = room.isMeetEnemy(x_room, y_room);
+                if (h == 1) dead();
+                if(h == 2) frozen = 70;
             }
+            if (frozen == 0) {
+                if (up)     this.location_y -= this.speed;
+                if (down)   this.location_y += this.speed;
+                if (right)  this.location_x += this.speed;
+                if (left)   this.location_x -= this.speed;
+                int x1 = (int) ((location_x + 10)  / Resources.BLOCK_SIZE); // 4 điểm tạo nên 1 hình chữ nhật
+                int x2 = (int) ((location_x + 40) / Resources.BLOCK_SIZE); // hình chữ nhật đó là cơ thể vật lý của nhân vật
+                int y1 = (int) ((location_y + 40) / Resources.BLOCK_SIZE); // 4 điểm được chuyển từ tọa độ trên màn hình location thành tọa độ trên map
+                int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE); // kiểm tra va chạm bằng cách kiểm tra 4 điểm này có vào ô bị chặn ko
 
-            if (up)     this.location_y -= this.speed;
-            if (down)   this.location_y += this.speed;
-            if (right)  this.location_x += this.speed;
-            if (left)   this.location_x -= this.speed;
-            int x1 = (int) ((location_x + 10)  / Resources.BLOCK_SIZE); // 4 điểm tạo nên 1 hình chữ nhật
-            int x2 = (int) ((location_x + 40) / Resources.BLOCK_SIZE); // hình chữ nhật đó là cơ thể vật lý của nhân vật
-            int y1 = (int) ((location_y + 40) / Resources.BLOCK_SIZE); // 4 điểm được chuyển từ tọa độ trên màn hình location thành tọa độ trên map
-            int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE); // kiểm tra va chạm bằng cách kiểm tra 4 điểm này có vào ô bị chặn ko
-
-            if (x1 < 0) {
-                location_x = room.getMapWeigh() * Resources.BLOCK_SIZE - 40;
-                return 4;
+                if (x1 < 0) {
+                    location_x = room.getMapWeigh() * Resources.BLOCK_SIZE - 40;
+                    return 4;
+                }
+                if (y2 >= room.getMapHeight()) {
+                    location_y = -10;
+                    return 3;
+                }
+                if (x2 >= room.getMapWeigh()) {
+                    location_x = 0;
+                    return 2;
+                }
+                if (y1 < 0) {
+                    location_y = room.getMapHeight() * Resources.BLOCK_SIZE - 65;
+                    return 1;
+                }
+                collisionTest(x1, x2, y1, y2);
+            } else {
+                frozen--;
             }
-            if (y2 >= room.getMapHeight()) {
-                location_y = -10;
-                return 3;
-            }
-            if (x2 >= room.getMapWeigh()) {
-                location_x = 0;
-                return 2;
-            }
-            if (y1 < 0) {
-                location_y = room.getMapHeight() * Resources.BLOCK_SIZE - 65;
-                return 1;
-            }
-            collisionTest(x1, x2, y1, y2);
             x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
             y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
             if (room.get(x_room, y_room).charAt(0) == '+') return 5;
@@ -205,6 +211,9 @@ public class Player extends Character {
             drawLeg(g);
             if (flip)   g.drawImage(this.animation[frame / 3] ,location_x + width ,location_y ,-width ,height ,null);
             else        g.drawImage(this.animation[frame / 3] ,location_x ,location_y ,width ,height ,null);
+        }
+        if (frozen != 0) {
+            g.drawImage(Resources.Images.ICE.getImage(),location_x ,location_y + 20,null);
         }
     }
 

@@ -62,14 +62,19 @@ public class Enemy extends Character {
             if (!up && !down && !right && !left) {
                 Random ran = new Random();
                 int r = ran.nextInt(4);
-                if (r == 0 && room.get(x_room - 1, y_room).charAt(0) == ' ') x_room--;
-                if (r == 1 && room.get(x_room, y_room + 1).charAt(0) == ' ') y_room++;
-                if (r == 2 && room.get(x_room + 1, y_room).charAt(0) == ' ') x_room++;
-                if (r == 3 && room.get(x_room, y_room - 1).charAt(0) == ' ') y_room--;
+                if (r == 0 && check(x_room - 1, y_room)) x_room--;
+                if (r == 1 && check(x_room, y_room + 1)) y_room++;
+                if (r == 2 && check(x_room + 1, y_room)) x_room++;
+                if (r == 3 && check(x_room, y_room - 1)) y_room--;
             }
             move();
         }
         return 0;
+    }
+
+    private boolean check(int x, int y) {
+        return  room.get(x, y).charAt(0) == ' '
+                || room.get(x, y).charAt(0) == 'I';
     }
 
     protected void draw(Graphics g) {

@@ -212,7 +212,7 @@ public class Level extends Object {
             }
         }
 
-        if (player.room.getType() != Room.SHOP) {
+        if (player.room.get(6, 6).charAt(0) != 'K') {
             shopping = false;
         } else if (shopping) {
             shop.draw(g);
