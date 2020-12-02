@@ -2,6 +2,10 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * lưu tài nguyên game (những thứ đọc từ bên ngoài).
@@ -109,6 +113,8 @@ public class Resources {
         }
     }
 
+    public static ArrayList<Map> Maps = new ArrayList<>();
+
     /**
      * hàm đọc file.
      */
@@ -187,6 +193,20 @@ public class Resources {
             Sound.CRYSTAL.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Crystal.wav")));
             Sound.SLIME.clip.open(AudioSystem.getAudioInputStream(Resources.class.getResource( res +"Slime.wav")));
 
+            Scanner in = new Scanner(Paths.get("MapData.txt"), "UTF8");
+            int n = in.nextInt();
+            for (int z = 0; z < n; z++) {
+                Map map = new Map(13);
+                for (int i = 0; i < 13; i++) {
+                    for (int j = 0; j < 13; j++) {
+                        String s = in.next();
+                        if (s.charAt(0) == '-') map.str[i][j] = " ";
+                        else map.str[i][j] = s;
+                    }
+                }
+                Maps.add(map);
+            }
+
         } catch (IOException e) {
             System.err.println(e + ": Cannot read image file");
             e.printStackTrace();
@@ -195,5 +215,12 @@ public class Resources {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+}
+
+class Map {
+    public String[][] str;
+    Map(int size) {
+        str = new String[size][size];
     }
 }

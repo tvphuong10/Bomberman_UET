@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Random;
 
 public class Ghost extends Enemy {
@@ -49,5 +50,17 @@ public class Ghost extends Enemy {
             move();
         }
         return 0;
+    }
+
+    @Override
+    protected void draw(Graphics g) {
+        frame ++;
+        if (is_dead) {
+            if (frame < 12)  g.drawImage(this.dead_animation[frame / 3] ,location_x, location_y ,width ,height ,null);
+        } else {
+            if (frame >= 12) frame = 0;
+            if (!flip)   g.drawImage(this.animation[frame / 3] ,location_x + width ,location_y ,-width ,height ,null);
+            else        g.drawImage(this.animation[frame / 3] ,location_x ,location_y ,width ,height ,null);
+        }
     }
 }
