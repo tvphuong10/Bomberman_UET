@@ -36,7 +36,7 @@ public class Player extends Character {
         level_y = -1;
         this.gold = 0;
         this.immortal_timer = 0;
-        this.speed = 4;
+        this.speed = 8;
         this.height = 60;
         this.width = 52;
         this.frame = 0;
@@ -77,7 +77,7 @@ public class Player extends Character {
     public void rightReleased() {right = false;}
     public void leftReleased() {left = false;}
 
-    private void pickItem() {
+    protected void pickItem() {
         int x  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
         int y  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
         gold += room.getCoin(x, y);
@@ -96,7 +96,7 @@ public class Player extends Character {
         boolean first_time = false;
     }
 
-    private void dead() {
+    protected void dead() {
         hurt();
         immortal_timer = 46;
         frame = 0;
@@ -146,7 +146,7 @@ public class Player extends Character {
             }
             x_room  = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
             y_room  = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
-            if (room.get(x_room, y_room).charAt(0) == '+') return 5;
+            if (room.get(x_room, y_room).charAt(0) == '5') return 5;
         }
         return 0;
     }

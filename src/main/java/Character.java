@@ -1,8 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public abstract class Character extends Object {
     boolean up;
@@ -53,12 +51,19 @@ public abstract class Character extends Object {
         this.right = false;
         this.up = false;
         this.down = false;
-        if (location_x + 26 > x + this.speed) this.left = true;
-        else if (location_x + 26 < x - this.speed) this.right = true;
-        else location_x = x - 26;
-        if (location_y + 50 < y - this.speed) this.down = true;
-        else if (location_y + 50 > y + this.speed) this.up = true;
-        else location_y = y - 50;
+
+        if (y_room == 0 && room.main_gate == 1) this.up = true;
+        else if (x_room == 0 && room.main_gate == 4) this.left = true;
+        else if (y_room == 12 && room.main_gate == 3) this.down = true;
+        else if (x_room == 12 && room.main_gate == 2) this.right = true;
+        else {
+            if (location_x + 26 > x + this.speed) this.left = true;
+            else if (location_x + 26 < x - this.speed) this.right = true;
+            else location_x = x - 26;
+            if (location_y + 50 < y - this.speed) this.down = true;
+            else if (location_y + 50 > y + this.speed) this.up = true;
+            else location_y = y - 50;
+        }
 
         if (up)     this.location_y -= this.speed;
         if (down)   this.location_y += this.speed;
@@ -82,11 +87,12 @@ public abstract class Character extends Object {
      */
 
     public void findTheWay(int range) {
+        boolean[][] arr = new boolean[13][13];
         que = new LinkedList<>();
-        if (!blocked(x_room, y_room - 1))    que.add(new node(x_room, y_room - 1, 0, range));
-        if (!blocked(x_room, y_room + 1))    que.add(new node(x_room, y_room + 1, 2, range));
-        if (!blocked(x_room + 1, y_room))    que.add(new node(x_room + 1, y_room, 1, range));
-        if (!blocked(x_room - 1, y_room))    que.add(new node(x_room - 1, y_room, 3, range));
+        if (!blocked(x_room, y_room - 1, arr))    que.add(new node(x_room, y_room - 1, 0, range));
+        if (!blocked(x_room, y_room + 1, arr))    que.add(new node(x_room, y_room + 1, 2, range));
+        if (!blocked(x_room + 1, y_room, arr))    que.add(new node(x_room + 1, y_room, 1, range));
+        if (!blocked(x_room - 1, y_room, arr))    que.add(new node(x_room - 1, y_room, 3, range));
         if (que.size() == 0) return;
         while (!que.isEmpty()) {
             node n = que.poll();
@@ -94,16 +100,18 @@ public abstract class Character extends Object {
                 return;
             }
             if (condition(n.x, n.y)) {
+                //System.out.print(n.z);
                 if (n.z == 0) y_room--;
                 if (n.z == 1) x_room++;
                 if (n.z == 2) y_room++;
                 if (n.z == 3) x_room--;
                 return;
             }
-            if (!blocked(n.x, n.y - 1))    que.add(new node(n.x, n.y - 1, n.z, n.count - 1));
-            if (!blocked(n.x, n.y + 1))    que.add(new node(n.x, n.y + 1, n.z, n.count - 1));
-            if (!blocked(n.x + 1, n.y))    que.add(new node(n.x + 1, n.y, n.z, n.count - 1));
-            if (!blocked(n.x - 1, n.y))    que.add(new node(n.x - 1, n.y, n.z, n.count - 1));
+            if (!blocked(n.x, n.y - 1, arr))    que.add(new node(n.x, n.y - 1, n.z, n.count - 1));
+            if (!blocked(n.x, n.y + 1, arr))    que.add(new node(n.x, n.y + 1, n.z, n.count - 1));
+            if (!blocked(n.x + 1, n.y, arr))    que.add(new node(n.x + 1, n.y, n.z, n.count - 1));
+            if (!blocked(n.x - 1, n.y, arr))    que.add(new node(n.x - 1, n.y, n.z, n.count - 1));
+            arr[n.x][n.y] = true;
         }
     }
 
@@ -114,8 +122,11 @@ public abstract class Character extends Object {
      * @return true neu bi chan.
      */
 
-    private boolean blocked(int x, int y) {
+    protected boolean blocked(int x, int y, boolean[][] arr) {
         if (x == x_room && y == y_room) return true;
+        if (x >= 0 && y >= 0 && x < 13 && y < 13) {
+            if (arr[x][y]) return true;
+        }
         if (room.get(x, y).charAt(0) == 'F') return true;
         return room.blocked(x, y);
     }

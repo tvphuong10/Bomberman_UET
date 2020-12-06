@@ -31,7 +31,7 @@ public class Level extends Object {
         rooms[4][2] = new Room(Room.START, level);
 
         buildLevel();
-        player = new Player();
+        player = new Bot();
         player.Init(rooms[4][2],Resources.Animation.TEEMO.getAnimation(),
                 Resources.Animation.RUN.getAnimation(),
                 Resources.Animation.TEEMODEAD.getAnimation());
@@ -40,8 +40,7 @@ public class Level extends Object {
     }
 
     public void pause() {
-        if (pause) pause = false;
-        else pause = true;
+        pause = !pause;
     }
 
     public void shoping() {
@@ -63,19 +62,35 @@ public class Level extends Object {
         int x = ran.nextInt(5);
         int y = ran.nextInt(2);
         rooms[y][x] = new Room(Room.END, level);
+        rooms[y][x].setMainGate(5);
         while (y != 4 || x != 2) {
             int r = ran.nextInt(2);
-            if (r == 0 && y < 4) y++;
-            if (r == 1 && x < 2) x++;
-            if (r == 1 && x > 2) x--;
-            rooms[y][x] = new Room(Room.DUNGEON, level);
+            int gate = 0;
+            if (r == 0 && y < 4) {
+                y++;
+                gate = 1;
+            }
+            if (r == 1 && x < 2) {
+                x++;
+                gate = 4;
+            }
+            if (r == 1 && x > 2) {
+                x--;
+                gate = 2;
+            }
+            if (gate != 0) {
+                rooms[y][x] = new Room(Room.DUNGEON, level);
+                rooms[y][x].setMainGate(gate);
+            }
         }
         // xay SHOP va cac DUNGEON xung quanh.
         buildShop();
         buildDungeon();
         // khoi tao phong START.
+        int gate = rooms[4][2].getMainGate();
         rooms[4][2] = new Room(Room.START, level);
         rooms[4][2].show = true;
+        rooms[4][2].setMainGate(gate);
         // neu co phong xung quanh thi xay cua den phong do.
         for (int i = 0; i < LEVEL_SIZE; i++) {
             for (int j = 0; j < LEVEL_SIZE; j++) {

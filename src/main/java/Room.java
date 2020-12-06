@@ -11,15 +11,19 @@ public class Room extends Object {
     public static final int END = 3;
 
     private String[][] map;
+    private int[][] warning;
     private int[][] map_status;
     private int map_height;
     private int map_weigh;
     private int type;
     private int level;
     protected boolean show;
+    protected int main_gate;
 
-    private ArrayList<Enemy> enemies = new ArrayList<>();
+    protected ArrayList<Enemy> enemies = new ArrayList<>();
 
+    public void setMainGate(int g) {main_gate = g;}
+    public int getMainGate() {return main_gate;}
     public int getType() {return type;}
     public int getMapHeight() {return map_height;}
     public int getMapWeigh() {return map_weigh;}
@@ -28,6 +32,7 @@ public class Room extends Object {
         this.type = type;
         this.level = level;
         show = false;
+        warning = new int[13][13];
         String[][] s;
         if (type == 0) {
             s = Resources.Maps.get(0).str.clone();
@@ -113,6 +118,12 @@ public class Room extends Object {
                 }
             }
         }
+    }
+
+    public int getWarning(int x, int y) {
+        if (x < 0 || x >= 13 || y < 0 || y >= 13)
+            return 0;
+        return warning[y][x];
     }
 
     /**
@@ -229,6 +240,25 @@ public class Room extends Object {
             map[y][x] = "B" + ((char) pow) + id;
             map_status[y][x] = 13;
             Resources.Sound.CRYSTAL.reStart();
+
+            int p = 13;
+            if (warning[y][x] != -1) p = warning[y][x];
+
+            int a[] = new int[4];
+            for (int z = 1; z <= pow; z++) {
+                for (int c = 0; c < 4; c++) {
+                    a[c]++;
+                }
+                if ((x + a[0]) >= 13  || (map[y][x + a[0]].charAt(0) != ' ' && map[y][x + a[0]].charAt(0) != 'F')) a[0]--;
+                if ((x - a[1]) < 0      || (map[y][x - a[1]].charAt(0) != ' ' && map[y][x - a[1]].charAt(0) != 'F')) a[1]--;
+                if ((y + a[2]) >= 13  || (map[y + a[2]][x].charAt(0) != ' ' && map[y + a[2]][x].charAt(0) != 'F')) a[2]--;
+                if ((y - a[3]) < 0      || (map[y - a[3]][x].charAt(0) != ' ' && map[y - a[3]][x].charAt(0) != 'F')) a[3]--;
+                warning[y][x] = p;
+                warning[y][x + a[0]] = p;
+                warning[y][x - a[1]] = p;
+                warning[y + a[2]][x] = p;
+                warning[y - a[3]][x] = p;
+            }
         }
     }
 
@@ -262,7 +292,7 @@ public class Room extends Object {
                     case '#' -> { if (map[j][i].length() == 1)
                         g.drawImage(Resources.Images.WALL2.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE - 15, null);
                     }
-                    case '+' -> g.drawImage(Resources.Images.GATE.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
+                    case '5' -> g.drawImage(Resources.Images.GATE.getImage(), i * Resources.BLOCK_SIZE, j * Resources.BLOCK_SIZE, null);
                 }
 
                 switch(map[j][i].charAt(0)) {
@@ -320,6 +350,9 @@ public class Room extends Object {
             for (int j = 0; j < map_height; j++) {
                 if (map_status[j][i] >= 0) {
                     map_status[j][i]-- ;
+                }
+                if (warning[j][i] >= 0) {
+                    warning[j][i]-- ;
                 }
             }
         }

@@ -123,28 +123,29 @@ public class Resources {
         try {
             String res = "/Img/";
             System.out.println(Resources.class.getResource(""));
+
+            Images.ICE.image = ImageIO.read(Resources.class.getResource(res + "Ice.png"));
+            Images.ICON.image = ImageIO.read(Resources.class.getResource(res + "Box.png"));
+            Images.COIN.image = ImageIO.read(Resources.class.getResource(res + "Coin.png"));
+            Images.GATE.image = ImageIO.read(Resources.class.getResource(res + "Gate.png"));
+            Images.LIFE.image = ImageIO.read(Resources.class.getResource(res + "Life.png"));
+            Images.MINIMAP.image = ImageIO.read(Resources.class.getResource(res + "Map.png"));
+            Images.LIGHT.image = ImageIO.read(Resources.class.getResource(res + "LIGHT.png"));
+            Images.FLOOR.image = ImageIO.read(Resources.class.getResource(res + "Floor.png"));
+            Images.WALL2.image = ImageIO.read(Resources.class.getResource(res + "Wall2.png"));
+            Images.MINIMAP2.image = ImageIO.read(Resources.class.getResource(res + "Map2.png"));
+            Images.SOFT_WALL.image = ImageIO.read(Resources.class.getResource(res + "Box.png"));
+            Images.FIREUP.image = ImageIO.read(Resources.class.getResource(res + "FireUp.png"));
+            Images.BOMBUP.image = ImageIO.read(Resources.class.getResource(res + "BombUp.png"));
+            Images.FLOOR2.image = ImageIO.read(Resources.class.getResource(res + "Floor2.png"));
             Images.STARTFLOOR.image = ImageIO.read(Resources.class.getResource(res + "Start.png"));
             Images.SHOPKEEPER.image = ImageIO.read(Resources.class.getResource(res + "ShopKeeper.png"));
             Images.SHOPKEEPER2.image = ImageIO.read(Resources.class.getResource(res + "ShopKeeper2.png"));
             Images.TRANSITION.image = ImageIO.read(Resources.class.getResource(res + "Transitions.png"));
-            Images.GATE.image = ImageIO.read(Resources.class.getResource(res + "Gate.png"));
-            Images.LIFE.image = ImageIO.read(Resources.class.getResource(res + "Life.png"));
-            Images.LIGHT.image = ImageIO.read(Resources.class.getResource(res + "LIGHT.png"));
-            Images.COIN.image = ImageIO.read(Resources.class.getResource(res + "Coin.png"));
             Images.BACKGROUND.image = ImageIO.read(Resources.class.getResource(res + "MapBg.png"));
-            Images.FLOOR.image = ImageIO.read(Resources.class.getResource(res + "Floor.png"));
-            Images.FLOOR2.image = ImageIO.read(Resources.class.getResource(res + "Floor2.png"));
             Images.TRANSITIONS.image = ImageIO.read(Resources.class.getResource(res + "Transitions.png"));
-            Images.ICON.image = ImageIO.read(Resources.class.getResource(res + "Box.png"));
-            Images.FIREUP.image = ImageIO.read(Resources.class.getResource(res + "FireUp.png"));
-            Images.BOMBUP.image = ImageIO.read(Resources.class.getResource(res + "BombUp.png"));
             Images.SPEEDUP.image = ImageIO.read(Resources.class.getResource(res + "SpeedUp.png"));
-            Images.SOFT_WALL.image = ImageIO.read(Resources.class.getResource(res + "Box.png"));
             Images.HARD_WALL.image = ImageIO.read(Resources.class.getResource(res + "Wall1.png"));
-            Images.WALL2.image = ImageIO.read(Resources.class.getResource(res + "Wall2.png"));
-            Images.MINIMAP2.image = ImageIO.read(Resources.class.getResource(res + "Map2.png"));
-            Images.MINIMAP.image = ImageIO.read(Resources.class.getResource(res + "Map.png"));
-            Images.ICE.image = ImageIO.read(Resources.class.getResource(res + "Ice.png"));
 
             res = "/Hub/";
             Images.PAUSE.image = ImageIO.read(Resources.class.getResource(res + "Pause.png"));

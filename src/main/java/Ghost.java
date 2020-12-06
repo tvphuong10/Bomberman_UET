@@ -25,6 +25,11 @@ public class Ghost extends Enemy {
     protected boolean condition(int x, int y) {
         int x_  = player.x_room;
         int y_  = player.y_room;
+        if (x_ <= 0) x = 1;
+        if (x_ >= 12) x = 11;
+        if (y_ <= 0) y = 1;
+        if (y_ >= 12) x = 11;
+
         return x == x_ && y == y_;
     }
 
@@ -45,7 +50,7 @@ public class Ghost extends Enemy {
             }
         } else {
             burn();
-            if (!up && !right && !down && !left)
+            if (!up && !right && !down && !left && player.room == room)
             findTheWay(6);
             move();
         }
