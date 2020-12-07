@@ -22,8 +22,8 @@ public class GamePanel extends JPanel implements Runnable {
         running = true;
         start = true;
         level = new Level();
-        //Resources.Sound.MENU.setLoop();
-        //Resources.Sound.MENU.start();
+        Resources.Sound.MENU.setLoop();
+        Resources.Sound.MENU.start();
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(Resources.SCREEN_W, Resources.SCREEN_H));

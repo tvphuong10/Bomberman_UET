@@ -99,19 +99,19 @@ public class Bot extends Player {
                 int y2 = (int) ((location_y + 60) / Resources.BLOCK_SIZE);
                 if (x1 < 0) {
                     location_x = room.getMapWeigh() * Resources.BLOCK_SIZE - 100;
-                    x_room = 11;
+                    x_room = 12;
                     return 4;
                 } else if (y2 >= room.getMapHeight()) {
                     location_y = -10;
-                    y_room = 1;
+                    y_room = 0;
                     return 3;
                 } else if (x2 >= room.getMapWeigh()) {
                     location_x = 0;
-                    x_room = 1;
+                    x_room = 0;
                     return 2;
                 } else if (y1 < 0) {
                     location_y = room.getMapHeight() * Resources.BLOCK_SIZE - 100;
-                    y_room = 11;
+                    y_room = 12;
                     return 1;
                 } else if (room.get(x, y).charAt(0) == '5') return 5;
             } else {

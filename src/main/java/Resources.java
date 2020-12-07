@@ -101,12 +101,12 @@ public class Resources {
             clip.start();
         }
         public void reStart() {
-            //clip.stop();
-            //clip.setFramePosition(0);
-            //clip.start();
+            clip.stop();
+            clip.setFramePosition(0);
+            clip.start();
         }
         public void setLoop() {
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
         public void stop() {
             clip.stop();
