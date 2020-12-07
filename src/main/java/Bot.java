@@ -20,7 +20,8 @@ public class Bot extends Player {
             return bomb[x][y] == -1;
         else {
             if (room.get(x, y).charAt(0) == room.getMainGate() + '0') return true;
-            if (room.get(x - 1, y).charAt(0) == 'X'
+            if ( room.get(x, y).charAt(0) == 'I'
+                    || room.get(x - 1, y).charAt(0) == 'X'
                     || room.get(x + 1, y).charAt(0) == 'X'
                     || room.get(x, y + 1).charAt(0) == 'X'
                     || room.get(x, y - 1).charAt(0) == 'X') return true;

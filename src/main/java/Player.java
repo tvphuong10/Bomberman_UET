@@ -10,7 +10,6 @@ public class Player extends Character {
     int frame;
     int frozen;
 
-    String name;
     char id;
     int gold;
     int life;
@@ -36,7 +35,7 @@ public class Player extends Character {
         level_y = -1;
         this.gold = 0;
         this.immortal_timer = 0;
-        this.speed = 8;
+        this.speed = 6;
         this.height = 60;
         this.width = 52;
         this.frame = 0;
@@ -44,7 +43,6 @@ public class Player extends Character {
         this.power = 1;
         this.bombNumber = 1;
         this.setID(0);
-        this.name = "Alice";
         this.location_x = 6 * Resources.BLOCK_SIZE;
         this.location_y = 5 * Resources.BLOCK_SIZE;
         this.x_room = 6;
@@ -207,7 +205,6 @@ public class Player extends Character {
         } else {
             if (immortal_timer > 0 && frame % 6 > 2) return;
             if (frame >= 12) frame = 0;
-            g.drawString(name, location_x ,location_y - 2);
             drawLeg(g);
             if (flip)   g.drawImage(this.animation[frame / 3] ,location_x + width ,location_y ,-width ,height ,null);
             else        g.drawImage(this.animation[frame / 3] ,location_x ,location_y ,width ,height ,null);
