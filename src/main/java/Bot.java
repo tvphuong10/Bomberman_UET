@@ -1,19 +1,23 @@
 public class Bot extends Player {
 
     private int[][] enemy;
+    private int[][] bomb;
 
     public Bot() {
         super();
         enemy = new int[13][13];
+        bomb = new int[13][13];
     }
 
     @Override
     protected boolean condition(int x, int y) {
+        findBomb();
         int x_ = (int) ((location_x + 24) / Resources.BLOCK_SIZE);
         int y_ = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
         if (enemy[x_][y_] == 1 && immortal_timer < 3) {
             return enemy[x][y] == 0;
-        } else if (room.getWarning(x_, y_) >= 0) return room.getWarning(x, y) == -1;
+        } else if (bomb[x_][y_] >= 0)
+            return bomb[x][y] == -1;
         else {
             if (room.get(x, y).charAt(0) == room.getMainGate() + '0') return true;
             if (room.get(x - 1, y).charAt(0) == 'X'
@@ -29,8 +33,8 @@ public class Bot extends Player {
         char c = room.get(x, y).charAt(0);
         if (c == 'F' || c == 'B' || c == 'S') return true;
         if (x >= 0 && y >= 0 && x < 13 && y < 13) {
-            if (room.getWarning(x, y) != -1)
-            if (room.getWarning(x, y) <= 3) return true;
+            if (bomb[x][y] != -1)
+            if (bomb[x][y] <= 3) return true;
             if(enemy[x][y] != 0 && immortal_timer < 3) {
                 return true;
             }
@@ -43,20 +47,21 @@ public class Bot extends Player {
         for (Enemy e : room.enemies) {
             int x_ = (int) ((e.location_x + 24) / Resources.BLOCK_SIZE);
             int y_ = (int) ((e.location_y + 48) / Resources.BLOCK_SIZE);
-            enemy[x_][y_ + 1] = 1;
-            enemy[x_][y_ - 1] = 1;
-            enemy[x_ + 1][y_] = 1;
-            enemy[x_ - 1][y_] = 1;
+            if (y_ + 1 < 13) enemy[x_][y_ + 1] = 1;
+            if (y_ - 1 >= 0) enemy[x_][y_ - 1] = 1;
+            if (x_ + 1 < 13) enemy[x_ + 1][y_] = 1;
+            if (x_ - 1 >= 0) enemy[x_ - 1][y_] = 1;
             enemy[x_][y_] = 1;
         }
     }
 
     private boolean check(int x, int y) {
-        return  room.getWarning(x, y) == -1
-                && room.getWarning(x, y - 1) == -1
-                && room.getWarning(x, y + 1) == -1
-                && room.getWarning(x + 1, y) == -1
-                && room.getWarning(x - 1, y) == -1
+        if (x < 1 || y < 1 || x >= 12 || y >= 12) return true;
+        return  bomb[x][y] == -1
+                && bomb[x][y - 1] == -1
+                && bomb[x][y + 1] == -1
+                && bomb[x + 1][y] == -1
+                && bomb[x - 1][y] == -1
                 && room.get(x, y).charAt(0) != 'F'
                 && (room.get(x, y).charAt(0) == 'I'
                 || room.get(x, y - 1).charAt(0) == 'X'
@@ -71,7 +76,7 @@ public class Bot extends Player {
         int y = (int) ((location_y + 48) / Resources.BLOCK_SIZE);
 
         if (immortal_timer > 0) immortal_timer--;
-        if (life == 0 && frame >= 11) {
+        if (life <= 0 && frame >= 11) {
             return -1;
         } else {
             if (immortal_timer == 0) {
@@ -82,6 +87,7 @@ public class Bot extends Player {
             }
             if (frozen == 0) {
                 if (!up && !right && !down && !left) {
+                    findBomb();
                     if (check(x, y)) putBomb();
                     findEnemy();
                     findTheWay(19);
@@ -113,5 +119,46 @@ public class Bot extends Player {
             }
         }
         return 0;
+    }
+
+    private void findBomb() {
+        bomb = new int[13][13];
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 13; j++) {
+                bomb[i][j] = -1;
+            }
+        }
+
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 13; j++) {
+                int timer = room.getBombStatus(i, j);
+                if (room.get(i, j).charAt(0) == 'B')
+                    findExplosion(i, j, room.get(i, j).charAt(1), timer);
+            }
+        }
+    }
+
+    private void findExplosion(int x, int y, int range, int t) {
+        int timer = t;
+        if (bomb[x][y] != -1) timer = bomb[x][y];
+        int a[] = new int[4];
+        for (int z = 1; z <= range; z++) {
+            for (int c = 0; c < 4; c++) {
+                a[c]++;
+            }
+            if ((x + a[0]) >= 13 || (room.get(x + a[0], y).charAt(0) != ' ' && room.get(x + a[0], y).charAt(0) != 'I'))
+                a[0]--;
+            if ((x - a[1]) < 0   || (room.get(x - a[1], y).charAt(0) != ' ' && room.get(x - a[1], y).charAt(0) != 'I'))
+                a[1]--;
+            if ((y + a[2]) >= 13 || (room.get(x, y + a[2]).charAt(0) != ' ' && room.get(x, y + a[2]).charAt(0) != 'I'))
+                a[2]--;
+            if ((y - a[3]) < 0   || (room.get(x, y - a[3]).charAt(0) != ' ' && room.get(x, y - a[3]).charAt(0) != 'I'))
+                a[3]--;
+            bomb[x][y] = timer;
+            if (bomb[x + a[0]][y] == -1 || bomb[x + a[0]][y] >= timer) bomb[x + a[0]][y] = timer;
+            if (bomb[x - a[1]][y] == -1 || bomb[x - a[1]][y] >= timer) bomb[x - a[1]][y] = timer;
+            if (bomb[x][y + a[2]] == -1 || bomb[x][y + a[2]] >= timer) bomb[x][y + a[2]] = timer;
+            if (bomb[x][y - a[3]] == -1 || bomb[x][y - a[3]] >= timer) bomb[x][y - a[3]] = timer;
+        }
     }
 }
