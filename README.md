@@ -4,7 +4,7 @@ Game được mô phỏng theo trò trơi bomberman
 
 <img src="src\main\resources\Animations\Menu1.png" alt="drawing" width="400"/>
 
-**Màn hình** Có 2 chế độ **người chơi** hoặc **Bomber tự chơi**
+Có 2 chế độ **người chơi** hoặc **Bomber tự chơi**
 
 <img src="src\main\resources\Img\Demo.png" alt="drawing" width="400"/>
 
@@ -16,7 +16,7 @@ luật chơi:
     các phòng chưa quái vật được lấy ngẫu nhiên
     một phòng chứa cổng lên level tiếp theo
 - Người chơi bắt đầu từ phòng khởi đầu tìm đến phòng chứa cổng để đến level tiếp theo với độ khó cao hơn.
-- Vũ khí có thẻ sử dụng là bomb nổ theo chiều dọc sức mạnh và số lượng của quả bomb có thể tăng thêm bằng việc thu thập các Item
+- Vũ khí có thẻ sử dụng là bomb nổ theo chiều dọc và ngang sức mạnh và số lượng của quả bomb có thể tăng thêm bằng việc thu thập các Item
 - Giết quái vật để thu thập tiền sử dụng tiền để trao đổi trong cửa hàng
 - Mỗi khi va chạm với quái vật (trừ quái băng) nhân vật sẽ bị mất 1 mạng nếu số mạng về 0 ...bạn thua.
 
