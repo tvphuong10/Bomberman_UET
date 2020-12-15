@@ -1,6 +1,6 @@
 # Bài tập lớn làm game Bomberman
 
-Game được mô phỏng theo trò trơi bomberman
+Game được mô phỏng theo trò chơi bomberman
 
 <img src="src\main\resources\Animations\Menu1.png" alt="drawing" width="400"/>
 
