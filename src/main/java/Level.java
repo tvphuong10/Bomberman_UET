@@ -23,15 +23,17 @@ public class Level extends Object {
     /**
      * khoi tao level, chon rooms[4][2] la phong khoi dau.
      */
-    public Level() {
-        pause = true;
+    public Level(boolean b) {
+        pause = false;
         i = 0;
         level = 1;
         rooms = new Room[LEVEL_SIZE][LEVEL_SIZE];
         rooms[4][2] = new Room(Room.START, level);
 
         buildLevel();
-        player = new Bot();
+        if (b) player = new Bot();
+        else player = new Player();
+
         player.Init(rooms[4][2],Resources.Animation.TEEMO.getAnimation(),
                 Resources.Animation.RUN.getAnimation(),
                 Resources.Animation.TEEMODEAD.getAnimation());

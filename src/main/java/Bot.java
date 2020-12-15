@@ -7,6 +7,7 @@ public class Bot extends Player {
         super();
         enemy = new int[13][13];
         bomb = new int[13][13];
+        name = "Bot";
     }
 
     @Override

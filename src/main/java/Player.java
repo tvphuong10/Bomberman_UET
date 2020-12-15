@@ -15,6 +15,7 @@ public class Player extends Character {
     int life;
     int bombNumber;
     int power;
+    String name = "";
 
     public int getY() {return (int) ((location_y + 55) / Resources.BLOCK_SIZE);}
     public Room getRoom() {return room;}
@@ -47,6 +48,10 @@ public class Player extends Character {
         this.location_y = 5 * Resources.BLOCK_SIZE;
         this.x_room = 6;
         this.y_room = 5;
+    }
+
+    public void setName(String n) {
+        this.name = n;
     }
 
     public void putBomb() {
@@ -205,6 +210,7 @@ public class Player extends Character {
         } else {
             if (immortal_timer > 0 && frame % 6 > 2) return;
             if (frame >= 12) frame = 0;
+            g.drawString(name, location_x ,location_y - 2);
             drawLeg(g);
             if (flip)   g.drawImage(this.animation[frame / 3] ,location_x + width ,location_y ,-width ,height ,null);
             else        g.drawImage(this.animation[frame / 3] ,location_x ,location_y ,width ,height ,null);

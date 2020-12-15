@@ -21,9 +21,18 @@ public class GamePanel extends JPanel implements Runnable {
         i = 0;
         running = true;
         start = true;
-        level = new Level();
+        level = new Level(false);
         Resources.Sound.MENU.setLoop();
         Resources.Sound.MENU.start();
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        this.setPreferredSize(new Dimension(Resources.SCREEN_W, Resources.SCREEN_H));
+        this.addKeyListener(new GameController(this, level.getPlayer(), level));
+        this.addMouseListener(new GameClick(level));
+    }
+
+    public void init(boolean b) {
+        level = new Level(b);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setPreferredSize(new Dimension(Resources.SCREEN_W, Resources.SCREEN_H));
@@ -108,8 +117,14 @@ class GameController implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (game_panel.isStart()) {
-            game_panel.setStart(false);
-            level.setPause(false);
+            if (e.getKeyCode() == KeyEvent.VK_S) {
+                game_panel.init(false);
+                game_panel.setStart(false);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_A) {
+                game_panel.init(true);
+                game_panel.setStart(false);
+            }
         } else {
             if (e.getKeyCode() == KeyEvent.VK_A) player.leftPressed();
             if (e.getKeyCode() == KeyEvent.VK_S) player.downPressed();
