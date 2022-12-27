@@ -6,6 +6,8 @@ Game được mô phỏng theo trò chơi bomberman
 
 Có 2 chế độ **người chơi** hoặc **Bomber tự chơi**
 
+Video AI tự chơi: https://drive.google.com/file/d/1D5C9XvvQrSVtQkV9Cvs9ZJw7dLLyFkE8/view?usp=sharing
+
 <img src="src\main\resources\Img\Demo.png" alt="drawing" width="400"/>
 
 luật chơi:
